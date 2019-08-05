@@ -1,0 +1,2 @@
+# Build path will be ignored if is created here. Useful for standalone binaries.
+build/
