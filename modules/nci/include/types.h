@@ -20,13 +20,17 @@ enum CURSOR : uint8_t {
     VERY_VISIBLE = 2,
 };
 
-typedef struct Rect
+typedef struct Point2D
 {
     int x;
     int y;
+} Point2D;
+
+typedef struct Size2D
+{
     int width;
     int height;
-} Rect;
+} Size2D;
 
 }   // namespace nci
 

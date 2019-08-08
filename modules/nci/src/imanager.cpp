@@ -2,17 +2,14 @@
 
 #include <sstream>
 
+
 namespace nci
 {
 
 WINDOW* IManager::_stdscr = nullptr;
 
-IManager::IManager():
-_end_execution(false),
-_ch('a')
+IManager::IManager()
 {
-    printf("Initializing IManager");
-
     _stdscr = initscr();
     raw();				            /* Line buffering disabled */
 	keypad(stdscr, TRUE);	        /* We get F1, F2... */
@@ -23,30 +20,26 @@ _ch('a')
         start_color();                  /* Allow color */
         //use_default_colors();           /* Default colors */
         if (can_change_color())         // TODO pallete colors
+        {
             init_pair(1, COLOR_RED, COLOR_BLACK);
             init_pair(2, COLOR_CYAN, COLOR_BLACK);
+        }
     }
 }
 
 IManager::~IManager()
 {
+    waddstr(_stdscr, "\nDestroying frontend. Push a key to continue");
+    noraw();
+    getch();
     endwin();
-    //printf("Destroying IManager");
 }
 
 void IManager::init()
 {
-    printw("Hello World !!!");
-	refresh();
-	getch();
 }
 
 /*
-void IManager::add_frame(std::shared_ptr<Frame> frame)
-{
-    frame->set_notify(std::bind(&IManager::redraw, this));
-    _frames.push_back(frame);
-}
 */
 /*
 Rect IManager::get_size()
@@ -96,6 +89,19 @@ void IManager::redraw()
     //    frame->draw_win();
 }
 
+void IManager::add_frame(std::shared_ptr<Frame> frame)
+{
+    //frame->set_notify(std::bind(&IManager::redraw, this));
+    _frames.push_back(frame);
+}
+
+bool IManager::run()
+{
+    if (_frames.empty())
+        return false;
+
+    return true;
+}
 /*
 bool IManager::run()
 {
