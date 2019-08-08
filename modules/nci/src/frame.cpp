@@ -1,6 +1,7 @@
 #include "frame.h"
 
 #include <ncurses.h>
+#include <sstream>
 
 namespace nci
 {
@@ -28,7 +29,12 @@ void Frame::destroy()
 
 void Frame::draw()
 {
-    wborder(_win, 0, 0, 0, 0, 0, 0, 0, 0);
+    wborder(_win, '|', '|', '-', '-', '+', '+', '+', '+');
+    //std::stringstream msg;
+    //msg << "HI";
+    //mvaddstr(0, 0, msg.str().c_str());
+    wrefresh(_win);
+    //refresh();
 }
 
 void Frame::run()
