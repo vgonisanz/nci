@@ -15,8 +15,9 @@ class IManager
 {
 private:
     static WINDOW *_stdscr;
-    //int _ch;            /* Store last character readed */
-    //bool _end_execution;
+    int _ch;            /* Store last character readed */
+    bool _end_execution;
+
     std::vector<std::shared_ptr<Frame> > _frames;
 
 public:

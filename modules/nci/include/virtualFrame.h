@@ -33,6 +33,7 @@ public:
     virtual ~VirtualFrame() {};
 
     virtual void draw() = 0;
+    virtual void run() = 0;
 };
 
 }   // namespace nci

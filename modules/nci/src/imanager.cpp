@@ -100,6 +100,42 @@ bool IManager::run()
     if (_frames.empty())
         return false;
 
+    int current = -1;
+    bool execute = false;
+
+    attron(COLOR_PAIR(2));
+    printw("Press Q to exit\n");
+    refresh();
+    attroff(COLOR_PAIR(2));
+
+    redraw();
+
+    while(_end_execution == false)
+    {
+        current += 1;
+        current = current % _frames.size();
+        if (current < 0)
+            current = 0;
+        if (current >= _frames.size())
+            current = _frames.size() - 1;
+
+        std::stringstream msg;
+        msg << "Running frame: " << current;
+        mvaddstr(0, 0, msg.str().c_str());
+
+        _frames.at(current)->run();
+        _ch = getch();
+        switch(_ch)
+        {
+            case 'q':
+                _end_execution = true;
+                mvaddstr(0, 0, "User end execution. Push any button...");
+                getch();
+                break;
+            default:
+                break;
+        }
+    }
     return true;
 }
 /*
