@@ -30,6 +30,7 @@ _ch(-1)
             init_pair(3, COLOR_WHITE, COLOR_RED);
             init_pair(4, COLOR_WHITE, COLOR_BLUE);
             init_pair(5, COLOR_WHITE, COLOR_GREEN);
+            init_pair(6, COLOR_WHITE, COLOR_MAGENTA);
         }
     }
 

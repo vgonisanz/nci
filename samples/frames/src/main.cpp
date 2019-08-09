@@ -27,9 +27,15 @@ bool run_frontend()
 	std::shared_ptr<nci::Frame> frame_3(new nci::Frame("Frame_3", origin_3, size_3));
 	frame_3->set_background_color(5);
 
+	nci::Point2D origin_4(screen_size.width/4, screen_size.height/4);
+	nci::Size2D size_4(screen_size.width/2, screen_size.height/2); /* Check how manage sizes */
+	std::shared_ptr<nci::Frame> frame_4(new nci::Frame("Frame_4", origin_4, size_4));
+	frame_4->set_background_color(6);
+
 	manager.add_frame(std::shared_ptr<nci::Frame>(frame_1));
 	manager.add_frame(std::shared_ptr<nci::Frame>(frame_2));
 	manager.add_frame(std::shared_ptr<nci::Frame>(frame_3));
+	manager.add_frame(std::shared_ptr<nci::Frame>(frame_4));
 	return manager.run();
 }
 
