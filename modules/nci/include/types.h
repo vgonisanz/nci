@@ -24,12 +24,20 @@ typedef struct Point2D
 {
     int x;
     int y;
+
+    Point2D(int x = 0, int y = 0):
+    x(x),
+    y(y) {}
 } Point2D;
 
 typedef struct Size2D
 {
     int width;
     int height;
+
+    Size2D(int width = 2, int height = 2):
+    width(width),
+    height(height) {}
 } Size2D;
 
 }   // namespace nci

@@ -13,6 +13,7 @@
 #define __VIRTUALFRAME_HEADER_FILE_H
 
 #include "types.h"
+#include <iostream>
 
 namespace nci
 {
@@ -23,13 +24,14 @@ protected:
     WINDOW *_win;
     Point2D _origin;
     Size2D _size;
-
-protected:
-    virtual void create() = 0;
-    virtual void destroy() = 0;
+    std::string _id;
 
 public:
-    VirtualFrame() {};
+    VirtualFrame():
+        _win(nullptr),
+        _origin(Point2D(0, 0)),
+        _size(Size2D(1, 1)),
+        _id("VirtualFrame") {};
     virtual ~VirtualFrame() {};
 
     virtual void draw() = 0;

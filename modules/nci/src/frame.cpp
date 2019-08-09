@@ -6,40 +6,41 @@
 namespace nci
 {
 
-Frame::Frame()
+Frame::Frame(std::string id, Point2D origin, Size2D size)
 {
-    create();
+    _id = id;
+    _origin = origin;
+    _size = size;
+
+    std::cout << "Create frame: " << _id << std::endl;
+
+    _win = newwin(_size.height, _size.width, _origin.y, _origin.x);
+
+    if(_win == nullptr)
+        std::cout << "Warning: win created is a nullptr, maybe not call initscr before create Frame" << std::endl;
 }
 
 Frame::~Frame()
 {
-    destroy();
-}
-
-void Frame::create()
-{
-    //_win = newwin(_rect.height, _rect.width, _rect.y, _rect.x);
-    _win = newwin(2, 2, 0, 0);
-}
-
-void Frame::destroy()
-{
+    std::cout << "Destroying frame: " << _id << std::endl;
     delwin(_win);
 }
 
 void Frame::draw()
 {
-    wborder(_win, '|', '|', '-', '-', '+', '+', '+', '+');
-    //std::stringstream msg;
-    //msg << "HI";
-    //mvaddstr(0, 0, msg.str().c_str());
+    std::cout << "draw: " << _id << std::endl;
+    box(_win, 0, 0);
     wrefresh(_win);
-    //refresh();
 }
 
 void Frame::run()
 {
-    draw();
+    std::cout << "run: " << _id << std::endl;
+}
+
+void Frame::set_background_color(int color_id)
+{
+    wbkgd(_win, COLOR_PAIR(color_id));
 }
 
 } /* namespace nci */

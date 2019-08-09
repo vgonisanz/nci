@@ -22,16 +22,14 @@ namespace nci
 
 class Frame : protected VirtualFrame
 {
-protected:
-    void create();
-    void destroy();
-
 public:
-    Frame();
+    Frame(std::string id, Point2D origin = Point2D(0, 0), Size2D size = Size2D(1, 1));
     ~Frame();
 
     void draw();
     void run();
+
+    void set_background_color(int color_id);
 };
 
 }   // namespace nci
