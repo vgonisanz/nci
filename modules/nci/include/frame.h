@@ -20,7 +20,7 @@
 namespace nci
 {
 
-class Frame : protected VirtualFrame
+class Frame : public VirtualFrame
 {
 public:
     Frame(std::string id, Point2D origin = Point2D(0, 0), Size2D size = Size2D(1, 1));

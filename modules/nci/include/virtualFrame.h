@@ -24,6 +24,7 @@ protected:
     WINDOW *_win;
     Point2D _origin;
     Size2D _size;
+
     std::string _id;
 
 public:

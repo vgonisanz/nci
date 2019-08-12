@@ -32,10 +32,10 @@ bool run_frontend()
 	std::shared_ptr<nci::Frame> frame_4(new nci::Frame("Frame_4", origin_4, size_4));
 	frame_4->set_background_color(6);
 
-	manager.add_frame(std::shared_ptr<nci::Frame>(frame_1));
-	manager.add_frame(std::shared_ptr<nci::Frame>(frame_2));
-	manager.add_frame(std::shared_ptr<nci::Frame>(frame_3));
-	manager.add_frame(std::shared_ptr<nci::Frame>(frame_4));
+	manager.add_frame(std::shared_ptr<nci::VirtualFrame>(frame_1));
+	manager.add_frame(std::shared_ptr<nci::VirtualFrame>(frame_2));
+	manager.add_frame(std::shared_ptr<nci::VirtualFrame>(frame_3));
+	manager.add_frame(std::shared_ptr<nci::VirtualFrame>(frame_4));
 	return manager.run();
 }
 
