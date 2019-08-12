@@ -26,7 +26,7 @@ private:
     int _ch;            /* Store last character readed */
     bool _end_execution;
 
-    std::vector<std::shared_ptr<Frame> > _frames;
+    std::vector<std::shared_ptr<VirtualFrame> > _frames;
 
     std::streambuf *_coutbuf;   /* stdout store pointer */
 
@@ -38,7 +38,7 @@ public:
     void redraw();
     bool run();
 
-    void add_frame(std::shared_ptr<Frame> frame);
+    void add_frame(std::shared_ptr<VirtualFrame> frame);
 
     Size2D get_size();    /* Return stdscr size */
     void test();

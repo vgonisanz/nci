@@ -126,7 +126,7 @@ void IManager::redraw()
         frame->draw();
 }
 
-void IManager::add_frame(std::shared_ptr<Frame> frame)
+void IManager::add_frame(std::shared_ptr<VirtualFrame> frame)
 {
     //frame->set_notify(std::bind(&IManager::redraw, this));
     _frames.push_back(frame);
