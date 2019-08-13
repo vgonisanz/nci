@@ -12,8 +12,11 @@
 #ifndef __VIRTUALFRAME_HEADER_FILE_H
 #define __VIRTUALFRAME_HEADER_FILE_H
 
-#include "types.h"
+#include <ncurses.h>
 #include <iostream>
+
+#include "types.h"
+#include "frameContainer.h"
 
 namespace nci
 {
@@ -22,21 +25,24 @@ class VirtualFrame
 {
 protected:
     WINDOW *_win;
-    Point2D _origin;
-    Size2D _size;
 
     std::string _id;
+    FrameContainer _children;
 
 public:
-    VirtualFrame():
-        _win(nullptr),
-        _origin(Point2D(0, 0)),
-        _size(Size2D(1, 1)),
-        _id("VirtualFrame") {};
+    VirtualFrame() {};
     virtual ~VirtualFrame() {};
 
     virtual void draw() = 0;
     virtual void run() = 0;
+
+    template <typename F>
+    void add(F frame)
+    {
+        Point2D origin;
+        getbegyx(_win, origin.y, origin.x);
+        _children.add(frame, origin);
+    }
 };
 
 }   // namespace nci

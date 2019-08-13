@@ -28,6 +28,12 @@ typedef struct Point2D
     Point2D(int x = 0, int y = 0):
     x(x),
     y(y) {}
+
+    inline Point2D operator+(const Point2D& other) const
+    {
+        Point2D res {x + other.x, y + other.y};
+        return res;
+    }
 } Point2D;
 
 typedef struct Size2D

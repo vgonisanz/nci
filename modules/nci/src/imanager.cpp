@@ -3,6 +3,8 @@
 #include <ctime>
 #include <filesystem>
 
+#include "virtualFrame.h"
+
 namespace nci
 {
 
@@ -66,7 +68,7 @@ IManager::~IManager()
     endwin();
 
     /* "free" smart pointers */
-    _frames.clear();
+    _children.clear();
 
     /* Restore std::cout */
     std::cout.rdbuf(_coutbuf);
@@ -122,19 +124,14 @@ void IManager::redraw()
     refresh();
 
     /* Draw all frames */
-    for (auto &frame : _frames)
-        frame->draw();
-}
-
-void IManager::add_frame(std::shared_ptr<VirtualFrame> frame)
-{
-    //frame->set_notify(std::bind(&IManager::redraw, this));
-    _frames.push_back(frame);
+    _children.draw();
+    //for (auto &frame : _frames)
+    //    frame->draw();
 }
 
 bool IManager::run()
 {
-    if (_frames.empty())
+    if (_children.empty())
         return false;
 
     std::cout << "IManager start running frames..." << std::endl;
@@ -144,14 +141,15 @@ bool IManager::run()
     while(_end_execution == false)
     {
         current += 1;
-        current = current % _frames.size();
+        current = current % _children.size();
         if (current < 0)
             current = 0;
-        if (current >= _frames.size())
-            current = _frames.size() - 1;
+        if (current >= _children.size())
+            current = _children.size() - 1;
 
         std::cout << "Running frame: " << current << std::endl;
-        _frames.at(current)->run();
+        //children.at(current)->run(); /* to fix */
+        _children.at(current)->run();
 
         redraw();   /* It is really needed? TODO */
         _ch = getch();

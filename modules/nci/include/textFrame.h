@@ -16,12 +16,12 @@
 #include <iostream>
 
 #include "types.h"
-#include "virtualFrame.h"
+#include "frame.h"
 
 namespace nci
 {
 
-class TextFrame : public VirtualFrame
+class TextFrame : public Frame
 {
 protected:
     std::string _text;

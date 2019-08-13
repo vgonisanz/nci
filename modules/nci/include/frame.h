@@ -16,6 +16,7 @@
 
 #include "types.h"
 #include "virtualFrame.h"
+#include "frameContainer.h"
 
 namespace nci
 {
@@ -26,7 +27,22 @@ public:
     Frame(std::string id, Point2D origin = Point2D(0, 0), Size2D size = Size2D(1, 1));
     ~Frame();
 
+    Point2D get_origin() const
+    {
+        Point2D origin;
+        getbegyx(_win, origin.y, origin.x);
+        return origin;
+    }
+
+    Size2D get_size() const
+    {
+        Size2D size;
+        getmaxyx(_win, size.height, size.width);
+        return size;
+    }
+
     void draw();
+    void move(Point2D origin);
     void run();
 
     void set_background_color(int color_id);

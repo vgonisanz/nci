@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "types.h"
-#include "frame.h"
+#include "frameContainer.h"
 
 namespace nci
 {
@@ -19,14 +19,13 @@ class IManager
 {
 private:
     static WINDOW *_stdscr;
+    FrameContainer _children;
 
     std::ofstream _logstream;
     std::string _log_filename;
 
     int _ch;            /* Store last character readed */
     bool _end_execution;
-
-    std::vector<std::shared_ptr<VirtualFrame> > _frames;
 
     std::streambuf *_coutbuf;   /* stdout store pointer */
 
@@ -38,11 +37,15 @@ public:
     void redraw();
     bool run();
 
-    void add_frame(std::shared_ptr<VirtualFrame> frame);
-
     Size2D get_size();    /* Return stdscr size */
     void test();
     static void info();
+
+    template <typename F>
+    void add(F frame)
+    {
+        _children.add(frame);
+    }
 };
 
 } /* namespace nci */
