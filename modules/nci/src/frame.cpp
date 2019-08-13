@@ -11,8 +11,8 @@ Frame::Frame(std::string id, Point2D origin, Size2D size)
     _id = id;
 
     std::cout << "Create frame: " << _id
-        << " origin (" << origin.x << ", " << origin.y
-        << " size (" << size.width << ", " << size.height
+        << " origin (" << origin.x << ", " << origin.y << ")"
+        << " size (" << size.width << ", " << size.height << ")"
         << std::endl;
 
     _win = newwin(size.height, size.width, origin.y, origin.x);
@@ -31,8 +31,8 @@ void Frame::draw()
 {
     std::cout << "draw: " << _id << std::endl;
     box(_win, 0, 0);
-    _children.draw();
     wrefresh(_win);
+    _children.draw();
 }
 
 void Frame::move(Point2D origin)

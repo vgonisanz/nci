@@ -29,7 +29,8 @@ void TextFrame::draw()
     Point2D origin = get_origin();
     std::cout << "draw: " << _id << " at (" << origin.x << ", " << origin.y << ")" << std::endl;
 
-    mvaddstr(origin.y, origin.x, _text.c_str());
+    /* Relative drawing to win */
+    mvwaddstr(_win, 0, 0, _text.c_str());
     wrefresh(_win);
 }
 
