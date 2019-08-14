@@ -20,6 +20,12 @@ _ch(-1)
     raw();				            /* Line buffering disabled */
 	keypad(stdscr, TRUE);	        /* We get F1, F2... */
 	noecho();			            /* Don't echo() while we do getch */
+
+    /* Trick to avoid have to call getch to start drawing: TODO why is happening */
+    nodelay(stdscr, TRUE);
+    getch();
+    nodelay(stdscr, FALSE);
+
     curs_set(CURSOR::INVISIBLE);
     if (has_colors())
     {
@@ -62,9 +68,7 @@ _ch(-1)
 IManager::~IManager()
 {
     /* Ncurses tear down */
-    waddstr(_stdscr, "\nDestroying frontend. Push a key to continue");
     noraw();
-    getch();
     endwin();
 
     /* "free" smart pointers */
@@ -79,9 +83,18 @@ void IManager::init()
 {
 }
 
+void IManager::launch(std::shared_ptr<nci::Popup> popup)
+{
+    Size2D screen_size = get_size();
+    popup->move(Point2D(screen_size.width/4, screen_size.height/4));
+    popup->resize(Size2D(screen_size.width/2, screen_size.height/2));
+    popup->run();
+}
+
 Size2D IManager::get_size()
 {
-    Size2D size;
+    Size2D size(0, 0);
+
     //getbegyx(_stdscr, size.y, size.x);
     getmaxyx(_stdscr, size.height, size.width);
     return size;
@@ -152,7 +165,9 @@ bool IManager::run()
         _children.at(current)->run();
 
         redraw();   /* It is really needed? TODO */
-        _ch = getch();
+
+        _ch = getch(); /* Block for a new entry */
+
         switch(_ch)
         {
             case 'q':

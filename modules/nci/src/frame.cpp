@@ -45,6 +45,16 @@ void Frame::move(Point2D origin)
     mvwin(_win, origin.y, origin.x);
 }
 
+void Frame::resize(Size2D size)
+{
+    Size2D original = get_size();
+    std::cout << "resize: " << _id
+        << " from (" << original.width << "," << original.height << ")"
+        << " to (" << size.width << "," << size.height << ")"
+        << std::endl;
+    wresize(_win, size.height, size.width);
+}
+
 void Frame::run()
 {
     std::cout << "run: " << _id << std::endl;

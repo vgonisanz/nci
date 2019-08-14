@@ -43,6 +43,7 @@ public:
 
     void draw();
     void move(Point2D origin);
+    void resize(Size2D size);
     void run();
 
     void set_background_color(int color_id);

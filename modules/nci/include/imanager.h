@@ -11,6 +11,7 @@
 
 #include "types.h"
 #include "frameContainer.h"
+#include "popup.h"
 
 namespace nci
 {
@@ -36,6 +37,9 @@ public:
     void init();
     void redraw();
     bool run();
+
+    /* Run a popup in a fixed position */
+    void launch(std::shared_ptr<nci::Popup> popup);
 
     Size2D get_size();    /* Return stdscr size */
     void test();
