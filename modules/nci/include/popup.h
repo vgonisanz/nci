@@ -23,6 +23,13 @@ namespace nci
 
 class Popup : public Frame
 {
+protected:
+    std::string _title;
+    std::string _text;
+
+    WINDOW *_title_win;
+    WINDOW *_text_win;
+
 public:
     Popup(std::string id, std::string text = "");
     ~Popup();
@@ -30,8 +37,11 @@ public:
     void draw();
     void run();
 
-    void set_text(std::string text);
+    void resize(Size2D size);
+
     void set_screen_size(Size2D size) { resize(size); };
+    void set_title(std::string text);
+    void set_text(std::string text);
 };
 
 }   // namespace nci

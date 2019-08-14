@@ -41,10 +41,11 @@ public:
         return size;
     }
 
-    void draw();
-    void move(Point2D origin);
-    void resize(Size2D size);
-    void run();
+    virtual void draw();
+    virtual void run();
+
+    virtual void move(Point2D origin);
+    virtual void resize(Size2D size);
 
     void set_background_color(int color_id);
 };

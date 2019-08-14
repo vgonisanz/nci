@@ -13,7 +13,8 @@ bool run_frontend()
 
 	/* Create a standalone popup */
 	std::shared_ptr<nci::Popup> popup_0(new nci::Popup("Popup_0"));
-	popup_0->set_text("Hello world popup!");
+	popup_0->set_title("Informative popup");
+	popup_0->set_text("Hello world popup in da jaus!");
 	manager.launch(popup_0);
 
 	return true;
