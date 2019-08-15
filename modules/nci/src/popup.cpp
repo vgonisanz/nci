@@ -3,6 +3,8 @@
 #include <ncurses.h>
 #include <sstream>
 
+#include "imanager.h"
+
 namespace nci
 {
 
@@ -11,11 +13,9 @@ Frame(id, Point2D(0, 0), Size2D(1, 1))
 {
     std::cout << "Create Popup: " << _id << std::endl;
 
-    //uint16_t x, y, width, height;
-    //getbegyx(_stdscr, y, x);
-    //getmaxyx(_stdscr, height, width);
-    //width = screen.width;
-    //height = ROWS;
+    Size2D size = nci::IManager::get_size();
+    move(Point2D(size.width/4, size.height/4));
+    resize(Size2D(size.width/2, size.height/2));
 }
 
 Popup::~Popup()

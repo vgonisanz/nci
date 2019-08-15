@@ -17,6 +17,7 @@
 
 #include "types.h"
 #include "frame.h"
+//#include "imanager.h"
 
 namespace nci
 {

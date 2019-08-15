@@ -20,6 +20,8 @@ class IManager
 {
 private:
     static WINDOW *_stdscr;
+    static bool _initialized;
+
     FrameContainer _children;
 
     std::ofstream _logstream;
@@ -38,11 +40,8 @@ public:
     void redraw();
     bool run();
 
-    /* Run a popup in a fixed position */
-    void launch(std::shared_ptr<nci::Popup> popup);
-
-    Size2D get_size();    /* Return stdscr size */
     void test();
+    static Size2D get_size();    /* Return stdscr size */
     static void info();
 
     template <typename F>

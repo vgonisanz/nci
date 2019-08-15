@@ -7,15 +7,18 @@
  *
  * Namespace to include all required elemens in nci library
  *
- * @license LGPL v3.0 
+ * @license LGPL v3.0
  */
 #ifndef __NCI_HEADER_FILE_H
 #define __NCI_HEADER_FILE_H
 
 #include "types.h"
+#include "imanager.h"
 
-namespace nci 
+namespace nci
 {
+
+//static IManager manager;
 
 }   // namespace nci
 #endif  /* __NCI_HEADER_FILE_H */

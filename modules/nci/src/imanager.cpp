@@ -9,6 +9,7 @@ namespace nci
 {
 
 WINDOW* IManager::_stdscr = nullptr;
+bool IManager::_initialized = false;
 
 IManager::IManager():
 _logstream(),
@@ -16,6 +17,9 @@ _end_execution(false),
 _ch(-1)
 {
     /* ncurses initialization */
+    if(_initialized)
+        throw std::runtime_error("You shall not create several IManagers");
+
     _stdscr = initscr();
     raw();				            /* Line buffering disabled */
 	keypad(stdscr, TRUE);	        /* We get F1, F2... */
@@ -63,6 +67,8 @@ _ch(-1)
         << ", pairs: " << std::to_string(COLOR_PAIRS) << std::endl;
     std::cout << "Size: " << size.width << "x" << size.height << "." << std::endl;
     std::cout << "Baud rate: " << baudrate() << std::endl;
+
+    _initialized = true;
 }
 
 IManager::~IManager()
@@ -81,14 +87,6 @@ IManager::~IManager()
 
 void IManager::init()
 {
-}
-
-void IManager::launch(std::shared_ptr<nci::Popup> popup)
-{
-    Size2D screen_size = get_size();
-    popup->move(Point2D(screen_size.width/4, screen_size.height/4));
-    popup->resize(Size2D(screen_size.width/2, screen_size.height/2));
-    popup->run();
 }
 
 Size2D IManager::get_size()

@@ -1,5 +1,6 @@
 #include <iostream>
 
+//#include "nci.h"
 #include "imanager.h"
 #include "frame.h"
 
@@ -11,6 +12,7 @@ bool run_frontend()
 	/* First create manager to initialize ncurse, handle stdout and windows */
 	nci::IManager manager;
 	nci::Size2D screen_size = manager.get_size();
+	std::cout << "screen_size: " << screen_size.width << ", " << screen_size.height << std::endl;
 
 	nci::Point2D origin_1(0, 0);
 	nci::Size2D size_1(screen_size.width/2, screen_size.height);

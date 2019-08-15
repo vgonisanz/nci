@@ -1,5 +1,6 @@
 #include <iostream>
 
+//#include "nci.h"
 #include "imanager.h"
 #include "popup.h"
 
@@ -12,10 +13,14 @@ bool run_frontend()
 	nci::IManager manager;
 
 	/* Create a standalone popup */
+	nci::Size2D screen_size2 = nci::IManager::get_size();
+	std::cout << "screen_size2: " << screen_size2.width << ", " << screen_size2.height << std::endl;
+
 	std::shared_ptr<nci::Popup> popup_0(new nci::Popup("Popup_0"));
 	popup_0->set_title("Informative popup");
 	popup_0->set_text("Hello world popup in da jaus!");
-	manager.launch(popup_0);
+	popup_0->run();
+	//anager.launch(popup_0);
 
 	return true;
 }
