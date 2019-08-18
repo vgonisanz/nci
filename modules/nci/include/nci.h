@@ -18,7 +18,6 @@
 namespace nci
 {
 
-//static IManager manager;
 
 }   // namespace nci
 #endif  /* __NCI_HEADER_FILE_H */

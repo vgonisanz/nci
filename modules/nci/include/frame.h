@@ -48,6 +48,7 @@ public:
     virtual void resize(Size2D size);
 
     void set_background_color(int color_id);
+    void box_me();
 };
 
 }   // namespace nci

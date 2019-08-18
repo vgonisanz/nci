@@ -3,6 +3,8 @@
 #include <ncurses.h>
 #include <sstream>
 
+#include "utils.h"
+
 namespace nci
 {
 
@@ -30,7 +32,8 @@ Frame::~Frame()
 void Frame::draw()
 {
     std::cout << "draw: " << _id << std::endl;
-    box(_win, 0, 0);
+    //box(_win, 0, 0);
+    box_me();
     wrefresh(_win);
     _children.draw();
 }
@@ -63,6 +66,11 @@ void Frame::run()
 void Frame::set_background_color(int color_id)
 {
     wbkgd(_win, COLOR_PAIR(color_id));
+}
+
+void Frame::box_me()
+{
+    box(_win);
 }
 
 } /* namespace nci */
