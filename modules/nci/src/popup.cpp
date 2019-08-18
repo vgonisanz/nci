@@ -4,6 +4,7 @@
 #include <sstream>
 
 #include "imanager.h"
+#include "utils.h"
 
 namespace nci
 {
@@ -47,7 +48,7 @@ void Popup::resize(Size2D size)
 void Popup::draw()
 {
     std::cout << "draw: " << _id << std::endl;
-    box(_win, 0, 0);
+    //box(_win, 0, 0);
 
     Point2D position = get_origin();
     Size2D size = get_size();
@@ -57,13 +58,13 @@ void Popup::draw()
     Size2D text_size(0, 0);
 
     /* Draw title */
-    box(_title_win, 0, 0);
+    top_box(_title_win, _id);
     mvwaddstr(_title_win, title_pos.y, title_pos.x, _title.c_str());
     wrefresh(_title_win);
 
     /* Draw body */
     text_size.height = getmaxy(_text_win);
-    box(_text_win, 0, 0);
+    bot_box(_text_win, _id);
     mvwaddstr(_text_win, text_size.height/2, text_pos.x, _text.c_str());
     wrefresh(_text_win);
     //wrefresh(_win);

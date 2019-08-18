@@ -19,6 +19,20 @@
 
 namespace nci
 {
-    void box(WINDOW* win, std::string id = "Unknown");
+
+/**
+ * \brief Draw a box around a window
+ */
+void box(WINDOW* win, std::string id = "Unknown");
+/**
+ * \brief Draw a box that fit with a bot box at the bottom of this one 
+ */
+void top_box(WINDOW* win, std::string id = "Unknown");
+/**
+ * \brief Draw a box that fit with a tot box at the top of this one
+ */
+void bot_box(WINDOW* win, std::string id = "Unknown");
+
+
 }   // namespace nci
 #endif  /* __NCI_UTILS_HEADER_FILE_H */
