@@ -43,6 +43,7 @@ public:
     void set_screen_size(Size2D size) { resize(size); };
     void set_title(std::string text);
     void set_text(std::string text);
+
 };
 
 }   // namespace nci

@@ -47,8 +47,8 @@ public:
     virtual void move(Point2D origin);
     virtual void resize(Size2D size);
 
-    void set_background_color(int color_id);
-    void box_me();
+    virtual void set_background_color(int color_id);
+    virtual void box_me();
 };
 
 }   // namespace nci

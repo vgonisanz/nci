@@ -28,6 +28,16 @@ public:
     FrameContainer();
     ~FrameContainer();
 
+    /* Iterator for frames */
+    using iterator = std::vector<std::shared_ptr<VirtualFrame> >::iterator;
+    using const_iterator = std::vector<std::shared_ptr<VirtualFrame> >::const_iterator;
+    iterator begin() { return _frames.begin(); }
+    iterator end() { return _frames.end(); }
+    const_iterator begin() const { return _frames.begin(); }
+    const_iterator end() const { return _frames.end(); }
+    const_iterator cbegin() const { return _frames.cbegin(); }
+    const_iterator cend() const { return _frames.cend(); }
+
     uint32_t size() { return _frames.size(); }
     bool empty() { return _frames.empty(); }
     void clear() { _frames.clear(); }

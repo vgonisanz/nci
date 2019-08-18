@@ -43,6 +43,8 @@ public:
         getbegyx(_win, origin.y, origin.x);
         _children.add(frame, origin);
     }
+
+    virtual void set_background_color(int color_id) = 0;
 };
 
 }   // namespace nci

@@ -66,6 +66,10 @@ void Frame::run()
 void Frame::set_background_color(int color_id)
 {
     wbkgd(_win, COLOR_PAIR(color_id));
+
+    /* TODO this no work if win are not children, need refactor to use several win in a frame children */
+    for(auto child: _children)
+        child->set_background_color(color_id);
 }
 
 void Frame::box_me()

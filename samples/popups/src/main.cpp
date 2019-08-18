@@ -17,6 +17,7 @@ bool run_frontend()
 	std::cout << "screen_size2: " << screen_size2.width << ", " << screen_size2.height << std::endl;
 
 	std::shared_ptr<nci::Popup> popup_0(new nci::Popup("Popup_0"));
+	popup_0->set_background_color(2);
 	popup_0->set_title("Informative popup");
 	popup_0->set_text("Hello world popup in da jaus!");
 	popup_0->run();
