@@ -106,4 +106,11 @@ void Popup::set_text(std::string text)
     _text = text;
 }
 
+void Popup::set_background_color(int color_id)
+{
+    wbkgd(_title_win, COLOR_PAIR(color_id));
+    wbkgd(_text_win, COLOR_PAIR(color_id));
+
+}
+
 } /* namespace nci */

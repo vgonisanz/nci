@@ -28,7 +28,7 @@ public:
     FrameContainer();
     ~FrameContainer();
 
-    /* Iterator for frames */
+    /* Iterator for frames: TODO test properly */
     using iterator = std::vector<std::shared_ptr<VirtualFrame> >::iterator;
     using const_iterator = std::vector<std::shared_ptr<VirtualFrame> >::const_iterator;
     iterator begin() { return _frames.begin(); }

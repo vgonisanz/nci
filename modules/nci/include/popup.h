@@ -44,6 +44,7 @@ public:
     void set_title(std::string text);
     void set_text(std::string text);
 
+    void set_background_color(int color_id);
 };
 
 }   // namespace nci
