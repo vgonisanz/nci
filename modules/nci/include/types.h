@@ -10,6 +10,7 @@
 #define __NCI_TYPES_HEADER_FILE_H
 
 #include <stdint.h>
+#include <iostream>
 
 namespace nci
 {
@@ -22,10 +23,10 @@ enum CURSOR : uint8_t {
 
 typedef struct Point2D
 {
-    int x;
-    int y;
+    uint32_t x;
+    uint32_t y;
 
-    Point2D(int x = 0, int y = 0):
+    Point2D(uint32_t x = 0, uint32_t y = 0):
     x(x),
     y(y) {}
 
@@ -34,16 +35,59 @@ typedef struct Point2D
         Point2D res {x + other.x, y + other.y};
         return res;
     }
+/*    inline Point2D &operator+=(const uint32_t &other)
+    {
+        x += other;
+        y += other;
+        return *this;
+    }*/
+    inline Point2D operator-(const Point2D& other) const
+    {
+        Point2D res {x - other.x, y - other.y};
+        return res;
+    }
+/*    inline Point2D &operator-=(const uint32_t &other)
+    {
+        x -= other;
+        y -= other;
+        return *this;
+    }
+    */
 } Point2D;
 
 typedef struct Size2D
 {
-    int width;
-    int height;
+    uint32_t width;
+    uint32_t height;
 
-    Size2D(int width = 2, int height = 2):
+    Size2D(uint32_t width = 2, uint32_t height = 2):
     width(width),
     height(height) {}
+
+    inline Size2D operator+(const Size2D& other) const
+    {
+        Size2D res {width + other.width, height + other.height};
+        return res;
+    }
+/*    inline Size2D &operator+=(const Size2D &lhs, const uint32_t &other) const
+    {
+        lhs.x += other.x;
+        lhs.y += other.y;
+        return lhs;
+    }*/
+    inline Size2D operator-(const Size2D& other) const
+    {
+        Size2D res {width - other.width, height - other.height};
+        return res;
+    }
+/*    inline Size2D &operator-=(const Size2D &lhs, const uint32_t &other) const
+    {
+        lhs.x -= other.x;
+        lhs.y -= other.y;
+        return lhs;
+
+    }
+    */
 } Size2D;
 
 }   // namespace nci

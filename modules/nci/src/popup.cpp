@@ -22,25 +22,25 @@ Frame(id, Point2D(0, 0), Size2D(1, 1))
 Popup::~Popup()
 {
     std::cout << "Destroying Popup: " << _id << std::endl;
-    delwin(_win);
+    delwin(_border);
 }
 
 void Popup::resize(Size2D size)
 {
     Frame::resize(size);
-    delwin(_title_win);
-    delwin(_text_win);
+    delwin(_title_window);
+    delwin(_text_window);
 
     Point2D origin = get_origin();
 
     const uint8_t title_height = 3;
 
-    _title_win = newwin(title_height, size.width, origin.y, origin.x);
-    if(_title_win == nullptr)
+    _title_window = newwin(title_height, size.width, origin.y, origin.x);
+    if(_title_window == nullptr)
         std::cout << "Warning: win created is a nullptr, maybe not call initscr before create Frame" << std::endl;
 
-    _text_win = newwin(size.height - title_height, size.width, origin.y + title_height, origin.x);
-    if(_text_win == nullptr)
+    _text_window = newwin(size.height - title_height, size.width, origin.y + title_height, origin.x);
+    if(_text_window == nullptr)
         std::cout << "Warning: win created is a nullptr, maybe not call initscr before create Frame" << std::endl;
 
 }
@@ -48,7 +48,7 @@ void Popup::resize(Size2D size)
 void Popup::draw()
 {
     std::cout << "draw: " << _id << std::endl;
-    //box(_win, 0, 0);
+    //box(_border, 0, 0);
 
     Point2D position = get_origin();
     Size2D size = get_size();
@@ -58,16 +58,16 @@ void Popup::draw()
     Size2D text_size(0, 0);
 
     /* Draw title */
-    top_box(_title_win, _id);
-    mvwaddstr(_title_win, title_pos.y, title_pos.x, _title.c_str());
-    wrefresh(_title_win);
+    top_box(_title_window, _id);
+    mvwaddstr(_title_window, title_pos.y, title_pos.x, _title.c_str());
+    wrefresh(_title_window);
 
     /* Draw body */
-    text_size.height = getmaxy(_text_win);
-    bot_box(_text_win, _id);
-    mvwaddstr(_text_win, text_size.height/2, text_pos.x, _text.c_str());
-    wrefresh(_text_win);
-    //wrefresh(_win);
+    text_size.height = getmaxy(_text_window);
+    bot_box(_text_window, _id);
+    mvwaddstr(_text_window, text_size.height/2, text_pos.x, _text.c_str());
+    wrefresh(_text_window);
+    //wrefresh(_border);
     //refresh();
 }
 
@@ -88,7 +88,7 @@ void Popup::run()
         {
             case 'q':
                 end_execution = true;
-                wclear(_win);
+                wclear(_border);
                 break;
             default:
                 break;
@@ -108,8 +108,8 @@ void Popup::set_text(std::string text)
 
 void Popup::set_background_color(int color_id)
 {
-    wbkgd(_title_win, COLOR_PAIR(color_id));
-    wbkgd(_text_win, COLOR_PAIR(color_id));
+    wbkgd(_title_window, COLOR_PAIR(color_id));
+    wbkgd(_text_window, COLOR_PAIR(color_id));
 
 }
 

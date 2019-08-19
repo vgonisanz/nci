@@ -24,10 +24,13 @@ namespace nci
 class VirtualFrame
 {
 protected:
-    WINDOW *_win;
+    WINDOW *_border;
+    WINDOW *_content;
 
     std::string _id;
     FrameContainer _children;
+
+    bool _has_border;
 
 public:
     VirtualFrame() {};
@@ -40,7 +43,7 @@ public:
     void add(F frame)
     {
         Point2D origin;
-        getbegyx(_win, origin.y, origin.x);
+        getbegyx(_border, origin.y, origin.x);
         _children.add(frame, origin);
     }
 

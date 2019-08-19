@@ -12,16 +12,16 @@ _text("")
 {
     std::cout << "Create text frame: " << _id << std::endl;
 
-    _win = newwin(size.height, size.width, origin.y, origin.x);
+    _border = newwin(size.height, size.width, origin.y, origin.x);
 
-    if(_win == nullptr)
+    if(_border == nullptr)
         std::cout << "Warning: win created is a nullptr, maybe not call initscr before create TextFrame" << std::endl;
 }
 
 TextFrame::~TextFrame()
 {
     std::cout << "Destroying frame: " << _id << std::endl;
-    delwin(_win);
+    delwin(_border);
 }
 
 void TextFrame::draw()
@@ -30,8 +30,8 @@ void TextFrame::draw()
     std::cout << "draw: " << _id << " at (" << origin.x << ", " << origin.y << ")" << std::endl;
 
     /* Relative drawing to win */
-    mvwaddstr(_win, 0, 0, _text.c_str());
-    wrefresh(_win);
+    mvwaddstr(_border, 0, 0, _text.c_str());
+    wrefresh(_border);
 }
 
 void TextFrame::run()

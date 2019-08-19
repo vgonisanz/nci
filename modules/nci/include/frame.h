@@ -30,14 +30,20 @@ public:
     Point2D get_origin() const
     {
         Point2D origin;
-        getbegyx(_win, origin.y, origin.x);
+        if(_has_border)
+            getbegyx(_border, origin.y, origin.x);
+        else
+            getbegyx(_content, origin.y, origin.x);
         return origin;
     }
 
     Size2D get_size() const
     {
         Size2D size;
-        getmaxyx(_win, size.height, size.width);
+        if(_has_border)
+            getmaxyx(_border, size.height, size.width);
+        else
+            getmaxyx(_content, size.height, size.width);
         return size;
     }
 
@@ -49,6 +55,8 @@ public:
 
     virtual void set_background_color(int color_id);
     virtual void box_me();
+
+    //void set_border(bool value);
 };
 
 }   // namespace nci

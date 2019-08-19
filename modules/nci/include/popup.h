@@ -28,8 +28,8 @@ protected:
     std::string _title;
     std::string _text;
 
-    WINDOW *_title_win;
-    WINDOW *_text_win;
+    WINDOW *_title_window;
+    WINDOW *_text_window;
 
 public:
     Popup(std::string id, std::string text = "");
