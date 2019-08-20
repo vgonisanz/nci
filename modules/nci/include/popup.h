@@ -35,16 +35,56 @@ public:
     Popup(std::string id, std::string text = "");
     ~Popup();
 
+    /**
+     * \brief Create all windows follow internal variables
+     *
+     * Constructor use this method, but also setters that reconfigure the widget
+     *
+     */
+    void create(Point2D origin, Size2D size);
+    /**
+     * \brief Destroy all windows follow internal variables
+     *
+     * Destructor use this method, but also setters that reconfigure the widget
+     *
+     */
+    void destroy();
+    /**
+     * \brief Dummy method to draw the interface
+     */
     void draw();
+    /**
+     * \brief Call internal logic to control the interface
+     *
+     * This method take the control until the execution end
+     */
     void run();
 
+    /**
+     * \brief Resize the interface
+     *
+     * This method resize all internal windows active.
+     */
     void resize(Size2D size);
-
-    void set_screen_size(Size2D size) { resize(size); };
+    /**
+     * \brief Text to show as title
+     */
     void set_title(std::string text);
+    /**
+     * \brief Text to show as body
+     */
     void set_text(std::string text);
+    /**
+     * \brief Put color on windows
+     */
+    void color_me();
+    /**
+     * \brief Draw a box around the border
+     *
+     * This method only draw if border window exist
+     */
+    void box_me();
 
-    void set_background_color(int color_id);
 };
 
 }   // namespace nci

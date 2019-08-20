@@ -20,6 +20,7 @@ bool run_frontend()
 	popup_0->set_background_color(2);
 	popup_0->set_title("Informative popup");
 	popup_0->set_text("Hello world popup in da jaus!");
+	popup_0->get_border_size();
 	popup_0->run();
 	//anager.launch(popup_0);
 

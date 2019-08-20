@@ -15,13 +15,23 @@ Frame(id, Point2D(0, 0), Size2D(1, 1))
     std::cout << "Create Popup: " << _id << std::endl;
 
     Size2D size = nci::IManager::get_size();
-    move(Point2D(size.width/4, size.height/4));
-    resize(Size2D(size.width/2, size.height/2));
+    create(Point2D(size.width/4, size.height/4), Size2D(size.width/2, size.height/2));
 }
 
 Popup::~Popup()
 {
     std::cout << "Destroying Popup: " << _id << std::endl;
+    destroy();
+}
+
+void Popup::create(Point2D origin, Size2D size)
+{
+    move(origin);
+    resize(size);
+}
+
+void Popup::destroy()
+{
     delwin(_border);
 }
 
@@ -57,18 +67,17 @@ void Popup::draw()
     Point2D text_pos(1, 1);
     Size2D text_size(0, 0);
 
+    color_me();
+    box_me();
+
     /* Draw title */
-    top_box(_title_window, _id);
     mvwaddstr(_title_window, title_pos.y, title_pos.x, _title.c_str());
     wrefresh(_title_window);
 
     /* Draw body */
     text_size.height = getmaxy(_text_window);
-    bot_box(_text_window, _id);
     mvwaddstr(_text_window, text_size.height/2, text_pos.x, _text.c_str());
     wrefresh(_text_window);
-    //wrefresh(_border);
-    //refresh();
 }
 
 void Popup::run()
@@ -106,11 +115,17 @@ void Popup::set_text(std::string text)
     _text = text;
 }
 
-void Popup::set_background_color(int color_id)
+void Popup::color_me()
 {
-    wbkgd(_title_window, COLOR_PAIR(color_id));
-    wbkgd(_text_window, COLOR_PAIR(color_id));
-
+    wbkgd(_title_window, COLOR_PAIR(_background_color));
+    wbkgd(_text_window, COLOR_PAIR(_background_color));
 }
+
+void Popup::box_me()
+{
+    top_box(_title_window, _id);
+    bot_box(_text_window, _id);
+}
+
 
 } /* namespace nci */
