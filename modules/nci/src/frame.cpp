@@ -26,13 +26,8 @@ Frame::Frame(std::string id, Point2D origin, Size2D size)
         if(_border == nullptr)
             std::cout << "Warning: border created is a nullptr, maybe not call initscr before create Frame" << std::endl;
 
-            /* TODO PROPER OPERATOR */
-        //size -= 1;
-        //origin += 1;
-        size.width -= 2;
-        size.height -= 2;
-        origin.x += 1;
-        origin.y += 1;
+        size -= 2;
+        origin += 1;
 /*
         std::cout << "Create frame: " << _id
     << " origin (" << origin.x << ", " << origin.y << ")"
@@ -90,8 +85,7 @@ void Frame::resize(Size2D size)
     if(_has_border)
     {
         wresize(_border, size.height, size.width);
-        size.width -= 2;
-        size.height -= 2;
+        size -= 2;
     }
     wresize(_content, size.height, size.width);
 }

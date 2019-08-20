@@ -35,24 +35,23 @@ typedef struct Point2D
         Point2D res {x + other.x, y + other.y};
         return res;
     }
-/*    inline Point2D &operator+=(const uint32_t &other)
+    inline Point2D &operator+=( const uint32_t &rhs)
     {
-        x += other;
-        y += other;
+        this->x += rhs;
+        this->y += rhs;
         return *this;
-    }*/
+    }
     inline Point2D operator-(const Point2D& other) const
     {
         Point2D res {x - other.x, y - other.y};
         return res;
     }
-/*    inline Point2D &operator-=(const uint32_t &other)
+    inline Point2D &operator-=( const uint32_t &rhs)
     {
-        x -= other;
-        y -= other;
+        this->x -= rhs;
+        this->y -= rhs;
         return *this;
     }
-    */
 } Point2D;
 
 typedef struct Size2D
@@ -69,25 +68,23 @@ typedef struct Size2D
         Size2D res {width + other.width, height + other.height};
         return res;
     }
-/*    inline Size2D &operator+=(const Size2D &lhs, const uint32_t &other) const
+    inline Size2D &operator+=( const uint32_t &rhs)
     {
-        lhs.x += other.x;
-        lhs.y += other.y;
-        return lhs;
-    }*/
+        this->width += rhs;
+        this->height += rhs;
+        return *this;
+    }
     inline Size2D operator-(const Size2D& other) const
     {
         Size2D res {width - other.width, height - other.height};
         return res;
     }
-/*    inline Size2D &operator-=(const Size2D &lhs, const uint32_t &other) const
+    inline Size2D &operator-=( const uint32_t &rhs)
     {
-        lhs.x -= other.x;
-        lhs.y -= other.y;
-        return lhs;
-
+        this->width -= rhs;
+        this->height -= rhs;
+        return *this;
     }
-    */
 } Size2D;
 
 }   // namespace nci
