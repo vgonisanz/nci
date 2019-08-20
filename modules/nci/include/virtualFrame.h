@@ -30,18 +30,41 @@ protected:
     std::string _id;
     FrameContainer _children;
 
+    int _background_color;
     bool _has_border;
 
 public:
     VirtualFrame() {};
     virtual ~VirtualFrame() {};
 
+    /**
+     * \brief Create all windows follow internal variables
+     *
+     * Constructor use this method, but also setters that reconfigure the widget
+     *
+     */
+    virtual void create(Point2D origin, Size2D size) = 0;
+    /**
+     * \brief Destroy all windows follow internal variables
+     *
+     * Destructor use this method, but also setters that reconfigure the widget
+     *
+     */
+    virtual void destroy() = 0;
+    /**
+     * \brief Dummy method to draw the interface
+     */
     virtual void draw() = 0;
+    /**
+     * \brief Call internal logic to control the interface
+     *
+     * This method take the control until the execution end
+     */
     virtual void run() = 0;
 
     template <typename F>
     void add(F frame)
-    {
+    { /// border bug TODO
         Point2D origin;
         getbegyx(_border, origin.y, origin.x);
         _children.add(frame, origin);

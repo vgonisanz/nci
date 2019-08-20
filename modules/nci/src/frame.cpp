@@ -12,8 +12,20 @@ Frame::Frame(std::string id, Point2D origin, Size2D size)
 {
     _has_border = true;
     _id = id;
+    _background_color = 0;
 
+    create(origin, size);
+}
 
+Frame::~Frame()
+{
+    std::cout << "Destroying frame: " << _id << std::endl;
+
+    destroy();
+}
+
+void Frame::create(Point2D origin, Size2D size)
+{
     std::cout << "Create frame: " << _id
         << " origin (" << origin.x << ", " << origin.y << ")"
         << " size (" << size.width << ", " << size.height << ")"
@@ -28,12 +40,6 @@ Frame::Frame(std::string id, Point2D origin, Size2D size)
 
         size -= 2;
         origin += 1;
-/*
-        std::cout << "Create frame: " << _id
-    << " origin (" << origin.x << ", " << origin.y << ")"
-    << " size (" << size.width << ", " << size.height << ")"
-    << std::endl;
-*/
     }
 
     _content = newwin(size.height, size.width, origin.y, origin.x);
@@ -42,10 +48,8 @@ Frame::Frame(std::string id, Point2D origin, Size2D size)
         std::cout << "Warning: border created is a nullptr, maybe not call initscr before create Frame" << std::endl;
 }
 
-Frame::~Frame()
+void Frame::destroy()
 {
-    std::cout << "Destroying frame: " << _id << std::endl;
-
     if(_has_border)
         delwin(_border);
     delwin(_content);
@@ -54,6 +58,8 @@ Frame::~Frame()
 void Frame::draw()
 {
     std::cout << "draw: " << _id << std::endl;
+
+    color_me();
     box_me();
     wrefresh(_content);
     _children.draw();
@@ -97,10 +103,7 @@ void Frame::run()
 
 void Frame::set_background_color(int color_id)
 {
-    wbkgd(_content, COLOR_PAIR(color_id));
-
-    for(auto child: _children)
-        child->set_background_color(color_id);
+    _background_color = color_id;
 }
 
 void Frame::box_me()
@@ -110,6 +113,50 @@ void Frame::box_me()
 
     box(_border);
     wrefresh(_border);
+}
+
+void Frame::color_me()
+{
+    if(_has_border)
+        wbkgd(_border, COLOR_PAIR(_background_color));
+    wbkgd(_content, COLOR_PAIR(_background_color));
+}
+
+
+Point2D Frame::get_origin() const
+{
+    Point2D origin;
+    if(_has_border)
+        getbegyx(_border, origin.y, origin.x);
+    else
+        getbegyx(_content, origin.y, origin.x);
+    return origin;
+}
+
+Size2D Frame::get_size() const
+{
+    Size2D size;
+    if(_has_border)
+        getmaxyx(_border, size.height, size.width);
+    else
+        getmaxyx(_content, size.height, size.width);
+    return size;
+}
+
+Point2D Frame::get_border_origin() const
+{
+    Point2D origin;
+    if(_has_border)
+        getbegyx(_border, origin.y, origin.x);
+    return origin;
+}
+
+Size2D Frame::get_border_size() const
+{
+    Size2D size;
+    if(_has_border)
+        getmaxyx(_border, size.height, size.width);
+    return size;
 }
 /*
 void Frame::set_border(bool value)
