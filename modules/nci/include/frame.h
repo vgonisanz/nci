@@ -102,6 +102,12 @@ public:
      * If no border exist, return (0, 0)
      */
     virtual Size2D get_border_size() const;
+    /**
+     * \brief Set border property
+     *
+     * Change the current value imply destroy and create windows
+     */
+    virtual void set_border(bool value);
 };
 
 }   // namespace nci

@@ -22,12 +22,16 @@ bool run_frontend()
 	nci::Point2D origin_2(screen_size.width/2, 0);
 	nci::Size2D size_2(screen_size.width/2, screen_size.height/2);
 	std::shared_ptr<nci::Frame> frame_2(new nci::Frame("Frame_2", origin_2, size_2));
+	frame_2->set_border(false);
 	frame_2->set_background_color(4);
 
 	nci::Point2D origin_3(screen_size.width/2, screen_size.height/2);
 	nci::Size2D size_3(screen_size.width/2, screen_size.height/2 + 1); /* Check how manage sizes */
 	std::shared_ptr<nci::Frame> frame_3(new nci::Frame("Frame_3", origin_3, size_3));
+	frame_3->set_border(false);
 	frame_3->set_background_color(5);
+	frame_3->set_border(true);
+
 
 	nci::Point2D origin_4(screen_size.width/4, screen_size.height/4);
 	nci::Size2D size_4(screen_size.width/2, screen_size.height/2); /* Check how manage sizes */

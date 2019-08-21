@@ -158,10 +158,27 @@ Size2D Frame::get_border_size() const
         getmaxyx(_border, size.height, size.width);
     return size;
 }
-/*
+
 void Frame::set_border(bool value)
 {
+    destroy();
+
+    Point2D origin;
+    Size2D size;
+
+    if(_has_border)
+    {
+        origin = get_border_origin();
+        size = get_border_size();
+    }
+    else
+    {
+        origin = get_origin();
+        size = get_size();
+    }
+    
     _has_border = value;
-}*/
+    create(origin, size);
+}
 
 } /* namespace nci */
