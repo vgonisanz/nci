@@ -14,9 +14,11 @@
 
 #include <ncurses.h>
 #include <iostream>
+#include <functional>
 
 #include "types.h"
 #include "frameContainer.h"
+#include "keybindingContainer.h"
 
 namespace nci
 {
@@ -29,6 +31,7 @@ protected:
 
     std::string _id;
     FrameContainer _children;
+    KeybindingContainer _keys;
 
     int _background_color;
     bool _has_border;
@@ -64,11 +67,12 @@ public:
 
     template <typename F>
     void add(F frame)
-    { /// border bug TODO
+    {
         Point2D origin;
         getbegyx(_border, origin.y, origin.x);
         _children.add(frame, origin);
     }
+    virtual void keybind(int character, std::function<void()> function) = 0;
 
     virtual void set_background_color(int color_id) = 0;
 };

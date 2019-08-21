@@ -176,9 +176,14 @@ void Frame::set_border(bool value)
         origin = get_origin();
         size = get_size();
     }
-    
+
     _has_border = value;
     create(origin, size);
+}
+
+void Frame::keybind(int character, std::function<void()> function)
+{
+
 }
 
 } /* namespace nci */

@@ -108,6 +108,8 @@ public:
      * Change the current value imply destroy and create windows
      */
     virtual void set_border(bool value);
+
+    void keybind(int character, std::function<void()> function);
 };
 
 }   // namespace nci

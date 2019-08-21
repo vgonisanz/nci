@@ -37,6 +37,8 @@ void TextFrame::draw()
 void TextFrame::run()
 {
     std::cout << "run: " << _id << std::endl;
+
+    _keys.run();
 }
 
 void TextFrame::set_text(std::string text)
