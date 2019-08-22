@@ -6,7 +6,15 @@
 
 void print_key()
 {
-	std::cout << "rprintkeyu " <<  std::endl;
+	std::cout << "print_key" <<  std::endl;
+}
+
+void print_key_int(std::shared_ptr<nci::TextFrame> text, int key)
+{
+	std::cout << " print_key_int " << key <<  std::endl;
+
+	text->set_text("User pushed: " + std::to_string(key));
+	text->draw();
 }
 
 /**
@@ -28,8 +36,19 @@ bool run_frontend()
 	std::shared_ptr<nci::TextFrame> textframe_1(new nci::TextFrame("TextFrame_1", origin_text_1, size_text_1));
 	textframe_1->set_text("");
 	textframe_1->set_runnable(true);
-	textframe_1->keybind('i', print_key);
 	textframe_1->set_background_color(2);
+
+	/* Binding
+ 	 *
+	 * w --> Call print with int using value copy, if change -> print first assigned
+	 * e --> Call print with int using value as reference, if change -> print change
+	 * r --> Call print
+	*/
+	int value_int = 4;
+	textframe_1->keybind('w', std::bind(print_key_int, textframe_1, value_int));
+	textframe_1->keybind('e', std::bind(print_key_int, textframe_1, std::ref(value_int)));
+	value_int = 5;	/* Change after assign by reference */
+	textframe_1->keybind('r', print_key);
 
 	manager.add(textframe_0);
 	manager.add(textframe_1);
@@ -39,6 +58,7 @@ bool run_frontend()
 int main()
 {
 	bool result = run_frontend();
+	//test();
 
 	/* Create a thread to change data after a while */
 	// TODO
