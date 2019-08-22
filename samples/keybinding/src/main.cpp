@@ -4,6 +4,11 @@
 #include "textFrame.h"
 #include "frame.h"
 
+void print_key()
+{
+	std::cout << "rprintkeyu " <<  std::endl;
+}
+
 /**
  * Create a frame that use whole screen
  */
@@ -22,6 +27,8 @@ bool run_frontend()
 	nci::Size2D size_text_1(20, 20);
 	std::shared_ptr<nci::TextFrame> textframe_1(new nci::TextFrame("TextFrame_1", origin_text_1, size_text_1));
 	textframe_1->set_text("");
+	textframe_1->set_runnable(true);
+	textframe_1->keybind('i', print_key);
 	textframe_1->set_background_color(2);
 
 	manager.add(textframe_0);

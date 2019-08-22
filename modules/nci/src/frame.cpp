@@ -10,6 +10,7 @@ namespace nci
 
 Frame::Frame(std::string id, Point2D origin, Size2D size)
 {
+    _runnable = false;
     _has_border = true;
     _id = id;
     _background_color = 0;
@@ -99,6 +100,9 @@ void Frame::resize(Size2D size)
 void Frame::run()
 {
     std::cout << "run: " << _id << std::endl;
+
+    if(!_runnable)
+        return;
 }
 
 void Frame::set_background_color(int color_id)
@@ -181,9 +185,15 @@ void Frame::set_border(bool value)
     create(origin, size);
 }
 
+void Frame::set_runnable(bool runnable)
+{
+    std::cout << "Setting " << _id << " runnable: " << runnable << std::endl;
+    _runnable = runnable;
+}
+
 void Frame::keybind(int character, std::function<void()> function)
 {
-
+    _keys.add(character, function);
 }
 
 } /* namespace nci */

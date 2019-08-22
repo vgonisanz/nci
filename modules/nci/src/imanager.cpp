@@ -149,6 +149,8 @@ bool IManager::run()
 
     int current = -1;
 
+    redraw();
+
     while(_end_execution == false)
     {
         current += 1;
@@ -159,10 +161,7 @@ bool IManager::run()
             current = _children.size() - 1;
 
         std::cout << "Running frame: " << current << std::endl;
-        //children.at(current)->run(); /* to fix */
         _children.at(current)->run();
-
-        redraw();   /* It is really needed? TODO */
 
         _ch = getch(); /* Block for a new entry */
 

@@ -38,6 +38,12 @@ void TextFrame::run()
 {
     std::cout << "run: " << _id << std::endl;
 
+    if(!_runnable)
+    {
+        std::cout << _id << " is not runnable" << std::endl;
+        return;
+    }
+
     _keys.run();
 }
 

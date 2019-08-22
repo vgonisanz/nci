@@ -108,7 +108,7 @@ public:
      * Change the current value imply destroy and create windows
      */
     virtual void set_border(bool value);
-
+    virtual void set_runnable(bool runnable);
     void keybind(int character, std::function<void()> function);
 };
 

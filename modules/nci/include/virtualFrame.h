@@ -34,6 +34,7 @@ protected:
     KeybindingContainer _keys;
 
     int _background_color;
+    bool _runnable;
     bool _has_border;
 
 public:
@@ -75,6 +76,7 @@ public:
     virtual void keybind(int character, std::function<void()> function) = 0;
 
     virtual void set_background_color(int color_id) = 0;
+    virtual void set_runnable(bool runnable) = 0;
 };
 
 }   // namespace nci

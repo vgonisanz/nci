@@ -14,6 +14,11 @@ KeybindingContainer::~KeybindingContainer()
 {
 }
 
+void KeybindingContainer::add(int character, std::function<void()> function)
+{
+    _keybinding[character] = function;
+}
+
 void KeybindingContainer::run()
 {
     uint16_t character;

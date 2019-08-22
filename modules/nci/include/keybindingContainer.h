@@ -30,6 +30,7 @@ public:
     KeybindingContainer(std::string id = "Unknown");
     ~KeybindingContainer();
 
+    void add(int character, std::function<void()> function);
     void run();
 };
 
