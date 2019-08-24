@@ -77,6 +77,8 @@ public:
 
     virtual void set_background_color(int color_id) = 0;
     virtual void set_runnable(bool runnable) = 0;
+    //virtual std::string get_name() const = 0;
+
 };
 
 }   // namespace nci

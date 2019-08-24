@@ -101,8 +101,12 @@ void Frame::run()
 {
     std::cout << "run: " << _id << std::endl;
 
+    /* Frame and children no run if not active */
     if(!_runnable)
         return;
+
+    for(auto child: _children)
+        child->run();
 }
 
 void Frame::set_background_color(int color_id)
