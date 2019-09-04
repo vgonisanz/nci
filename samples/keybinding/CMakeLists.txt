@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.0)
 
 # Module step I: Set up project name
 # ------------------------------------------------------------------------------------------------------
-set(PROJ_NAME sample_keybinding)
+set(PROJ_NAME keybinding_usage)
 
 project(${PROJ_NAME})
 

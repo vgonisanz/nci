@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.0)
 
 # Module step I: Set up project name
 # ------------------------------------------------------------------------------------------------------
-set(PROJ_NAME sample_frames)
+set(PROJ_NAME draw_frames)
 
 project(${PROJ_NAME})
 
