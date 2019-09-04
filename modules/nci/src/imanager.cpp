@@ -3,6 +3,7 @@
 #include <ctime>
 #include <filesystem>
 
+#include "nci.h"
 #include "virtualFrame.h"
 
 namespace nci
@@ -20,32 +21,8 @@ _ch(-1)
     if(_initialized)
         throw std::runtime_error("You shall not create several IManagers");
 
-    _stdscr = initscr();
-    raw();				            /* Line buffering disabled */
-	keypad(stdscr, TRUE);	        /* We get F1, F2... */
-	noecho();			            /* Don't echo() while we do getch */
-
-    /* Trick to avoid have to call getch to start drawing: TODO why is happening */
-    nodelay(stdscr, TRUE);
-    getch();
-    nodelay(stdscr, FALSE);
-
-    curs_set(CURSOR::INVISIBLE);
-    if (has_colors())
-    {
-        start_color();                  /* Allow color */
-        //use_default_colors();           /* Default colors */
-        if (can_change_color())         // TODO pallete colors
-        {
-            init_pair(1, COLOR_RED, COLOR_BLACK);
-            init_pair(2, COLOR_CYAN, COLOR_BLACK);
-            init_pair(3, COLOR_WHITE, COLOR_RED);
-            init_pair(4, COLOR_WHITE, COLOR_BLUE);
-            init_pair(5, COLOR_WHITE, COLOR_GREEN);
-            init_pair(6, COLOR_WHITE, COLOR_MAGENTA);
-        }
-    }
-
+    _stdscr = initialize_ncurses();
+    
     /* Redirect std::cout to a timestamp file log */
     time_t current_time;
     struct tm * time_info;
@@ -73,9 +50,7 @@ _ch(-1)
 
 IManager::~IManager()
 {
-    /* Ncurses tear down */
-    noraw();
-    endwin();
+    tear_down_ncurses();
 
     /* "free" smart pointers */
     _children.clear();

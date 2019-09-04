@@ -12,12 +12,15 @@
 #ifndef __NCI_HEADER_FILE_H
 #define __NCI_HEADER_FILE_H
 
+#include <ncurses.h>
 #include "types.h"
 #include "imanager.h"
 
 namespace nci
 {
 
+WINDOW* initialize_ncurses();
+void tear_down_ncurses();
 
 }   // namespace nci
 #endif  /* __NCI_HEADER_FILE_H */

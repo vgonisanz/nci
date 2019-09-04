@@ -1,6 +1,6 @@
 #include <iostream>
 
-//#include "nci.h"
+#include "nci.h"
 #include "imanager.h"
 #include "popup.h"
 
@@ -29,8 +29,16 @@ bool run_frontend()
 
 int main()
 {
-	bool result = run_frontend();
+	bool result = false;
 
+ 	try
+	{
+		result = run_frontend();
+	}
+	catch (const std::exception& e)
+	{
+		nci::tear_down_ncurses();
+	}
 	/* Create a thread to change data after a while */
 	// TODO
 
