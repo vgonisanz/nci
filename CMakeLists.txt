@@ -47,6 +47,8 @@ create_project_dist_clean()
 configure_project_variables()
 configure_project_flags()
 
+set(PROJECT_NCI_BIN_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
 if(BUILD_PROFILING)
     configure_project_profiling()
 endif()

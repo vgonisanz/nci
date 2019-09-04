@@ -2,14 +2,15 @@ cmake_minimum_required (VERSION 3.0)
 
 # Module step I: Set up project name
 # ------------------------------------------------------------------------------------------------------
-set(PROJ_NAME input_basic)
+set(PROJ_NAME text_edit)
 
 project(${PROJ_NAME})
 
 # Module step II: Add the given directories to those the compiler uses to search for include files
 # ------------------------------------------------------------------------------------------------------
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/include )
-include_directories( ${PROJECT_NCI_PATH}/modules/core/include )
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/include
+                     ${PROJECT_NCI_INCLUDE_PATH}
+                     )
 
 # Module step III: Create variables with all includes and sources. You can add them manually in a VAR.
 # ------------------------------------------------------------------------------------------------------
@@ -28,13 +29,12 @@ file(GLOB ${PROJ_NAME}_SRC
 
 # Module step V: Create a library using the specified source files and build type in current project.
 # ------------------------------------------------------------------------------------------------------
-
 add_executable(${PROJ_NAME} ${${PROJ_NAME}_HEADERS} ${${PROJ_NAME}_SRC} )
 
 
 # Module step VI: Link a target to given libraries. Set the name of libraries needed by the project.
 # ------------------------------------------------------------------------------------------------------
-TARGET_LINK_LIBRARIES(${PROJ_NAME} ${PROJECT_NCI_LIB_TARGETS} )
+TARGET_LINK_LIBRARIES(${PROJ_NAME} ${PROJECT_NCI_LIB_TARGETS} nci)
 
 # Module step VII: Specify rules to run at install time. Copy generated library and PUBLIC headers to a destination.
 # ------------------------------------------------------------------------------------------------------
