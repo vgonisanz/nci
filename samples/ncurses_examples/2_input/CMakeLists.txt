@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.0)
 
 # Module step I: Set up project name
 # ------------------------------------------------------------------------------------------------------
-set(PROJ_NAME 2_input)
+set(PROJ_NAME nc_2_input)
 
 project(${PROJ_NAME})
 
