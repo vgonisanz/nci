@@ -30,7 +30,7 @@ bool run_frontend()
 
 	/* Create a children text for blue frame */
 	nci::Point2D origin_text_2(1, 2);
-	nci::Size2D size_text_2(40, 1);
+	nci::Size2D size_text_2(40, 2);
 	std::shared_ptr<nci::TextFrame> textframe_2(new nci::TextFrame("TextFrame_2", origin_text_2, size_text_2));
 	textframe_2->set_text("Edit me!");
 	textframe_2->set_editable(true);

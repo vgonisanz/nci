@@ -35,6 +35,7 @@ void Frame::create(Point2D origin, Size2D size)
     if(_has_border)
     {
         _border = newwin(size.height, size.width, origin.y, origin.x);
+        keypad(_border, true);
 
         if(_border == nullptr)
             std::cout << "Warning: border created is a nullptr, maybe not call initscr before create Frame" << std::endl;
@@ -44,6 +45,7 @@ void Frame::create(Point2D origin, Size2D size)
     }
 
     _content = newwin(size.height, size.width, origin.y, origin.x);
+    keypad(_content, true);
 
     if(_content == nullptr)
         std::cout << "Warning: border created is a nullptr, maybe not call initscr before create Frame" << std::endl;
@@ -141,13 +143,6 @@ Point2D Frame::get_origin() const
     return origin;
 }
 
-Point2D Frame::get_cursor() const
-{
-    Point2D origin;
-    getyx(_content, origin.y, origin.x);
-    return origin;
-}
-
 Size2D Frame::get_size() const
 {
     Size2D size;
@@ -174,12 +169,99 @@ Size2D Frame::get_border_size() const
     return size;
 }
 
-void Frame::set_cursor(uint16_t lenght)
+void Frame::cursor_set_position(uint16_t lenght)
 {
     const Size2D size = get_size();
     uint16_t y = lenght / size.width;
     uint16_t x = lenght % size.width;
-    wmove(_border, y, x);
+    wmove(_content, y, x);
+}
+
+Point2D Frame::cursor_set_position(Point2D position)
+{
+    /* limit */
+    Size2D size = get_size();
+    if(position.y >= size.height)
+        position.y = size.height - 1;
+    if(position.x >= size.width)
+        position.x = size.width - 1;
+    wmove(_content, position.y, position.x);
+    return position;
+}
+
+Point2D Frame::cursor_get_position() const
+{
+    Point2D origin;
+    getyx(_content, origin.y, origin.x);
+    return origin;
+}
+
+Point2D Frame::cursor_left()
+{
+    Point2D current = cursor_get_position();
+    Size2D size = get_size();
+
+    if(current.x == 0)
+    {
+        if(current.y == 0)
+            return current;
+
+        current.x = size.width - 1;
+        current.y -= 1;
+    }
+    else
+    {
+        current.x -= 1;
+    }
+    cursor_set_position(current);
+    return current;
+}
+
+Point2D Frame::cursor_right()
+{
+    Point2D current = cursor_get_position();
+    Size2D size = get_size();
+
+    if(current.x >= size.width - 1)
+    {
+        if(current.y >= size.height - 1)
+            return current;
+
+        current.x = 0;
+        current.y += 1;
+    }
+    else
+    {
+        current.x += 1;
+    }
+    cursor_set_position(current);
+    return current;
+}
+
+Point2D Frame::cursor_up()
+{
+    Point2D current = cursor_get_position();
+
+    if(current.y == 0)
+        return current;
+
+    current.y -= 1;
+    cursor_set_position(current);
+    return current;
+}
+
+Point2D Frame::cursor_down()
+{
+    Point2D current = cursor_get_position();
+    Size2D size = get_size();
+
+    if(current.y >= size.height - 1)
+        return current;
+
+    current.y += 1;
+    cursor_set_position(current);
+
+    return current;
 }
 
 void Frame::set_border(bool value)

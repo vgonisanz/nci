@@ -58,7 +58,7 @@ void TextFrame::run()
 void TextFrame::set_text(std::string text)
 {
     _text = text;
-    set_cursor(_text.size());
+    cursor_set_position(_text.size());
 }
 
 std::string TextFrame::get_text()
@@ -76,8 +76,52 @@ void TextFrame::edit_mode()
 {
     std::cout << "edit_mode: " << _id << std::endl;
     feedback_ncurses(true);
-    Point2D position = get_cursor();
-    mvwgetstr(_content, position.y, position.x, const_cast<char*>(_text.c_str()));
+    Point2D position = cursor_get_position();
+
+    int ch;
+    bool exit = false;
+
+    while(ch = wgetch(_content))
+    {
+        cursor_get_position();
+
+        switch (ch)
+        {
+            case KEY_LEFT:
+                position = cursor_left();
+                break;
+            case KEY_RIGHT:
+                position = cursor_right();
+                break;
+            case KEY_UP:
+                position = cursor_up();
+                break;
+            case KEY_DOWN:
+                position = cursor_down();
+                break;
+            case KEY_BACKSPACE:
+                position = cursor_left();
+                wdelch(_content);
+                break;
+            case 10: /* Enter */
+                std::cout << "KEY_ENTER" << std::endl;
+                exit = true;
+                break;
+            case 27: /* Escape */
+                std::cout << "KEY_EXIT" << std::endl;
+                exit = true;
+                break;
+            default:
+                waddch(_content, ch);
+                //position = cursor_right();
+                beep();
+                break;
+        }
+        std::cout << "ch " << ch << std::endl;
+
+        if(exit)
+            break;
+    }
     feedback_ncurses(false);
 }
 

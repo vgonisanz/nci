@@ -10,6 +10,7 @@ WINDOW* initialize_ncurses()
     raw();				            /* Line buffering disabled */
 	keypad(stdscr, TRUE);	        /* We get F1, F2... */
 	noecho();			            /* Don't echo() while we do getch */
+    cbreak();
 
     /* Trick to avoid have to call getch to start drawing: TODO why is happening */
     nodelay(stdscr, TRUE);
@@ -43,14 +44,14 @@ void tear_down_ncurses()
 
 void feedback_ncurses(bool print)
 {
-    if(echo)
+    if(print)
     {
-        echo();
+        //echo();
         curs_set(1);
     }
     else
     {
-        noecho();
+        //noecho();
         curs_set(0);
     }
 }

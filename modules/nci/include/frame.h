@@ -86,10 +86,6 @@ public:
      * \brief Get Point2D to the origin of the content.
      */
     virtual Point2D get_origin() const;
-    /**
-     * \brief Get Point2D to the current cursor position.
-     */
-    virtual Point2D get_cursor() const;
 
     /**
      * \brief Get Size2D to the origin of the content.
@@ -108,9 +104,36 @@ public:
      */
     virtual Size2D get_border_size() const;
     /**
+     * \brief Get Point2D to the current cursor position.
+     */
+    virtual Point2D cursor_get_position() const;
+    /**
      * \brief Set the cursor at x,y based on length
      */
-    virtual void set_cursor(uint16_t lenght);
+    virtual void cursor_set_position(uint16_t lenght);
+    /**
+     * \brief Set the cursor at x,y based on Point2D
+     */
+    virtual Point2D cursor_set_position(Point2D position);
+    /**
+     * \brief Move the cursor left
+     */
+    virtual Point2D cursor_left();
+    /**
+     * \brief Move the cursor right
+     */
+    virtual Point2D cursor_right();
+    /**
+     * \brief Move the cursor up
+     */
+    virtual Point2D cursor_up();
+    /**
+     * \brief Move the cursor down
+     */
+    virtual Point2D cursor_down();
+
+
+
     /**
      * \brief Set border property
      *
