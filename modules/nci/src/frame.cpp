@@ -8,10 +8,10 @@
 namespace nci
 {
 
-Frame::Frame(std::string id, Point2D origin, Size2D size)
+Frame::Frame(std::string id, Point2D origin, Size2D size, bool has_border)
 {
     _runnable = false;
-    _has_border = true;
+    _has_border = has_border;
     _id = id;
     _background_color = 0;
 
@@ -141,6 +141,13 @@ Point2D Frame::get_origin() const
     return origin;
 }
 
+Point2D Frame::get_cursor() const
+{
+    Point2D origin;
+    getyx(_content, origin.y, origin.x);
+    return origin;
+}
+
 Size2D Frame::get_size() const
 {
     Size2D size;
@@ -165,6 +172,14 @@ Size2D Frame::get_border_size() const
     if(_has_border)
         getmaxyx(_border, size.height, size.width);
     return size;
+}
+
+void Frame::set_cursor(uint16_t lenght)
+{
+    const Size2D size = get_size();
+    uint16_t y = lenght / size.width;
+    uint16_t x = lenght % size.width;
+    wmove(_border, y, x);
 }
 
 void Frame::set_border(bool value)

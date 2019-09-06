@@ -24,7 +24,7 @@ namespace nci
 class Frame : public VirtualFrame
 {
 public:
-    Frame(std::string id, Point2D origin = Point2D(0, 0), Size2D size = Size2D(1, 1));
+    Frame(std::string id, Point2D origin = Point2D(0, 0), Size2D size = Size2D(1, 1), bool has_border = true);
     ~Frame();
 
     /**
@@ -87,6 +87,11 @@ public:
      */
     virtual Point2D get_origin() const;
     /**
+     * \brief Get Point2D to the current cursor position.
+     */
+    virtual Point2D get_cursor() const;
+
+    /**
      * \brief Get Size2D to the origin of the content.
      */
     virtual Size2D get_size() const;
@@ -102,6 +107,10 @@ public:
      * If no border exist, return (0, 0)
      */
     virtual Size2D get_border_size() const;
+    /**
+     * \brief Set the cursor at x,y based on length
+     */
+    virtual void set_cursor(uint16_t lenght);
     /**
      * \brief Set border property
      *
