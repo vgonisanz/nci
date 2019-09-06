@@ -39,7 +39,20 @@ void tear_down_ncurses()
     /* Ncurses tear down */
     noraw();
     endwin();
+}
 
+void feedback_ncurses(bool print)
+{
+    if(echo)
+    {
+        echo();
+        curs_set(1);
+    }
+    else
+    {
+        noecho();
+        curs_set(0);
+    }
 }
 
 } /* namespace nci */

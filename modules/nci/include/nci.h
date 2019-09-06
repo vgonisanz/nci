@@ -21,6 +21,7 @@ namespace nci
 
 WINDOW* initialize_ncurses();
 void tear_down_ncurses();
+void feedback_ncurses(bool print);
 
 }   // namespace nci
 #endif  /* __NCI_HEADER_FILE_H */
