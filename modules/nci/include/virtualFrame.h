@@ -70,7 +70,8 @@ public:
     void add(F frame)
     {
         Point2D origin;
-        getbegyx(_border, origin.y, origin.x);
+        /* Content shall exist always by design */
+        getbegyx(_content, origin.y, origin.x);
         _children.add(frame, origin);
     }
     virtual void keybind(int character, std::function<void()> function) = 0;
