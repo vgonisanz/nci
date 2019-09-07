@@ -19,7 +19,7 @@ _editable(false)
 
     //if(_border == nullptr)
     //    std::cout << "Warning: win created is a nullptr, maybe not call initscr before create TextFrame" << std::endl;
-    _text.reserve(origin.x * origin.y);
+    _text.reserve(size.width * size.height);
     keybind('e', std::bind(&TextFrame::edit_mode, this));
 }
 
@@ -82,8 +82,6 @@ void TextFrame::edit_mode()
 
     while(ch = wgetch(_content))
     {
-        cursor_get_position();
-
         switch (ch)
         {
             case KEY_LEFT:
@@ -114,19 +112,23 @@ void TextFrame::edit_mode()
             default:
                 if(ch >= 0x21 && ch <= 0x7E)    /* Valid for ascii, change magic number and check unicode support TODO */
                 {
+                    position = cursor_right(false); /* update object cursor */
                     waddch(_content, ch);
                     _text[position.y*position.x+position.x] = ch;
                 }
                 beep();
                 break;
         }
-        std::cout << "ch " << ch << std::endl;
 
+        /* exit if required */
         if(exit)
+        {
+            /* Update cursor with latest position */
+            cursor_set_position(position);
             break;
+        }
     }
     feedback_ncurses(false);
-    draw();
 }
 
 } /* namespace nci */

@@ -217,7 +217,7 @@ Point2D Frame::cursor_left()
     return current;
 }
 
-Point2D Frame::cursor_right()
+Point2D Frame::cursor_right(bool update)
 {
     Point2D current = cursor_get_position();
     Size2D size = get_size();
@@ -234,7 +234,8 @@ Point2D Frame::cursor_right()
     {
         current.x += 1;
     }
-    cursor_set_position(current);
+    if(update)
+        cursor_set_position(current);
     return current;
 }
 
