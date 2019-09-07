@@ -19,14 +19,13 @@ _editable(false)
 
     //if(_border == nullptr)
     //    std::cout << "Warning: win created is a nullptr, maybe not call initscr before create TextFrame" << std::endl;
-
+    _text.reserve(origin.x * origin.y);
     keybind('e', std::bind(&TextFrame::edit_mode, this));
 }
 
 TextFrame::~TextFrame()
 {
     std::cout << "Destroying frame: " << _id << std::endl;
-    //delwin(_border);
 }
 
 void TextFrame::draw()
@@ -34,7 +33,7 @@ void TextFrame::draw()
     Point2D origin = get_origin();
     std::cout << "draw: " << _id << " at (" << origin.x << ", " << origin.y << ")" << std::endl;
 
-    //box_me();
+    box_me();
     color_me();
 
     /* Relative drawing to win */
@@ -101,6 +100,7 @@ void TextFrame::edit_mode()
                 break;
             case KEY_BACKSPACE:
                 position = cursor_left();
+                _text[position.y*position.x+position.x] = ' ';
                 wdelch(_content);
                 break;
             case 10: /* Enter */
@@ -112,8 +112,11 @@ void TextFrame::edit_mode()
                 exit = true;
                 break;
             default:
-                waddch(_content, ch);
-                //position = cursor_right();
+                if(ch >= 0x21 && ch <= 0x7E)    /* Valid for ascii, change magic number and check unicode support TODO */
+                {
+                    waddch(_content, ch);
+                    _text[position.y*position.x+position.x] = ch;
+                }
                 beep();
                 break;
         }
@@ -123,6 +126,7 @@ void TextFrame::edit_mode()
             break;
     }
     feedback_ncurses(false);
+    draw();
 }
 
 } /* namespace nci */
