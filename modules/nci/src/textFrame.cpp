@@ -15,10 +15,6 @@ _editable(false)
 {
     std::cout << "Create text frame: " << _id << std::endl;
 
-    //_border = newwin(size.height, size.width, origin.y, origin.x);
-
-    //if(_border == nullptr)
-    //    std::cout << "Warning: win created is a nullptr, maybe not call initscr before create TextFrame" << std::endl;
     _text.reserve(size.width * size.height);
     keybind('e', std::bind(&TextFrame::edit_mode, this));
 }
@@ -33,6 +29,7 @@ void TextFrame::draw()
     Point2D origin = get_origin();
     std::cout << "draw: " << _id << " at (" << origin.x << ", " << origin.y << ")" << std::endl;
 
+    wclear(_content);
     box_me();
     color_me();
 
