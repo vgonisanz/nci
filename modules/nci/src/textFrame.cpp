@@ -88,19 +88,19 @@ void TextFrame::edit_mode()
     {
         switch (ch)
         {
-            case KEY_LEFT:
+            case KEYS::I_KEY_LEFT:
                 position = cursor_left();
                 break;
-            case KEY_RIGHT:
+            case KEYS::I_KEY_RIGHT:
                 position = cursor_right();
                 break;
-            case KEY_UP:
+            case KEYS::I_KEY_UP:
                 position = cursor_up();
                 break;
-            case KEY_DOWN:
+            case KEYS::I_KEY_DOWN:
                 position = cursor_down();
                 break;
-            case KEY_BACKSPACE:
+            case KEYS::I_KEY_BACKSPACE:
                 position = cursor_left();
                 _text[position.y * position.x + position.x] = ' ';
                 wdelch(_content);
