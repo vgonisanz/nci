@@ -114,7 +114,7 @@ void TextFrame::edit_mode()
                 exit = true;
                 break;
             default:
-                if(ch >= 0x21 && ch <= 0x7E)    /* Valid for ascii, change magic number and check unicode support TODO */
+                if(ch >= KEYS::SPACE && ch <= KEYS::TILDE)
                 {
                     position = cursor_right(false); /* update object cursor */
                     waddch(_content, ch);
