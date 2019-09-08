@@ -45,9 +45,10 @@ public:
     static void info();
 
     template <typename F>
-    void add(F frame)
+    void add(F frame, Point2D origin = Point2D(0, 0), Size2D parent_size = Size2D(0, 0))
     {
-        _children.add(frame);
+        parent_size = get_size();
+        _children.add(frame, origin, parent_size);
     }
 };
 
