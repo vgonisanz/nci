@@ -61,13 +61,13 @@ bool run_frontend()
 	std::shared_ptr<nci::TextFrame> textframe_output(new nci::TextFrame("TextFrame_output", origin_text_output, size_text_output));
 	textframe_output->set_text("<output>");
 	textframe_output->set_background_color(3);
-	textframe_output->set_runnable(true);
+	textframe_output->set_runnable(false);
 
 	nci::Point2D origin_frame_output(screen_size.width/4, screen_size.height/2);
 	nci::Size2D size_frame_output(screen_size.width/2, screen_size.height/4);
 	std::shared_ptr<nci::Frame> frame_output(new nci::Frame("Frame_output", origin_frame_output, size_frame_output));
 	frame_output->set_background_color(3);
-	frame_output->set_runnable(true);
+	frame_output->set_runnable(false);
 
 	//print_output
 
