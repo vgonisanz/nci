@@ -87,6 +87,11 @@ typedef struct Size2D
     }
 } Size2D;
 
+enum KEYS : uint16_t {
+    ENTER       = 10,
+    ESC         = 27,
+};
+
 }   // namespace nci
 
 #endif  /* __NCI_TYPES_HEADER_FILE_H */

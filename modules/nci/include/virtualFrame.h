@@ -33,6 +33,7 @@ protected:
     FrameContainer _children;
     KeybindingContainer _keys;
 
+    int _attributes;
     int _background_color;
     bool _runnable;
     bool _has_border;

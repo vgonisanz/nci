@@ -56,7 +56,7 @@ bool run_frontend()
 	textframe_input_description->set_editable(true);
 
 	/* Output */
-	nci::Point2D origin_text_output(1, 0);
+	nci::Point2D origin_text_output(0, 0);
 	nci::Size2D size_text_output(20, 4);
 	std::shared_ptr<nci::TextFrame> textframe_output(new nci::TextFrame("TextFrame_output", origin_text_output, size_text_output));
 	textframe_output->set_text("<output>");

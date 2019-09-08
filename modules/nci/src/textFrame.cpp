@@ -75,6 +75,10 @@ void TextFrame::edit_mode()
 {
     std::cout << "edit_mode: " << _id << std::endl;
     feedback_ncurses(true);
+    add_attribute(A_REVERSE);
+    draw();
+    apply_attributes();
+
     Point2D position = cursor_get_position();
 
     int ch;
@@ -98,14 +102,14 @@ void TextFrame::edit_mode()
                 break;
             case KEY_BACKSPACE:
                 position = cursor_left();
-                _text[position.y*position.x+position.x] = ' ';
+                _text[position.y * position.x + position.x] = ' ';
                 wdelch(_content);
                 break;
-            case 10: /* Enter */
+            case KEYS::ENTER:
                 std::cout << "KEY_ENTER" << std::endl;
                 exit = true;
                 break;
-            case 27: /* Escape */
+            case KEYS::ESC:
                 std::cout << "KEY_EXIT" << std::endl;
                 exit = true;
                 break;
@@ -114,7 +118,7 @@ void TextFrame::edit_mode()
                 {
                     position = cursor_right(false); /* update object cursor */
                     waddch(_content, ch);
-                    _text[position.y*position.x+position.x] = ch;
+                    _text[position.y * position.x + position.x - 1] = ch;
                 }
                 beep();
                 break;
@@ -128,6 +132,10 @@ void TextFrame::edit_mode()
             break;
         }
     }
+
+    remove_attribute(A_REVERSE);
+    unapply_attributes(); /* TODO ugly here */
+    draw();
     feedback_ncurses(false);
 }
 

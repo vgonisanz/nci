@@ -80,6 +80,22 @@ public:
      * This method only draw if border window exist
      */
     virtual void box_me();
+    /**
+     * \brief Add an attribute when drawing
+     *
+     * This method use elements from enum TODO
+     * Use A_NORMAL to remove all them.
+     */
+    virtual void add_attribute(int attr);
+    /**
+     * \brief Remove an attribute when drawing
+     *
+     * This method use elements from enum TODO
+     */
+    virtual void remove_attribute(int attr);
+    virtual void apply_attributes();
+    virtual void unapply_attributes();
+
 
     //void set_border(bool value);
     /**

@@ -14,6 +14,7 @@ Frame::Frame(std::string id, Point2D origin, Size2D size, bool has_border)
     _has_border = has_border;
     _id = id;
     _background_color = 0;
+    _attributes = A_NORMAL;
 
     create(origin, size);
 }
@@ -123,6 +124,47 @@ void Frame::box_me()
 
     box(_border);
     wrefresh(_border);
+}
+
+void Frame::add_attribute(int attr)
+{
+    _attributes |= attr;
+}
+
+
+void Frame::remove_attribute(int attr)
+{
+    _attributes ^= attr;
+}
+
+void Frame::apply_attributes()
+{
+    wattron(_content, _attributes);
+    
+    Point2D cursor;
+    getyx(_content, cursor.y, cursor.x);
+
+    Size2D size = get_size();
+    for(int i = 0; i < size.height; i++)
+    {
+        mvwchgat(_content, i, 0, -1, _attributes, 3, nullptr);
+    }
+    wmove(_content, cursor.y, cursor.x);
+}
+
+void Frame::unapply_attributes()
+{
+    wattroff(_content, _attributes);
+
+    Point2D cursor;
+    getyx(_content, cursor.y, cursor.x);
+
+    Size2D size = get_size();
+    for(int i = 0; i < size.height; i++)
+    {
+        mvwchgat(_content, i, 0, -1, _attributes, 3, nullptr);
+    }
+    wmove(_content, cursor.y, cursor.x);
 }
 
 void Frame::color_me()
