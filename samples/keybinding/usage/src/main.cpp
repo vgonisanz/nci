@@ -34,8 +34,8 @@ bool run_frontend()
 	frame_1->set_runnable(true);
 
 	/* Create a standalone text label */
-	nci::Point2D origin_text_0(1, 1);
-	nci::Size2D size_text_0(screen_size.width, screen_size.height/2);
+	nci::Point2D origin_text_0(0, 0);
+	nci::Size2D size_text_0(screen_size.width - 2, screen_size.height/2);
 	std::shared_ptr<nci::TextFrame> textframe_0(new nci::TextFrame("TextFrame_0", origin_text_0, size_text_0));
 	textframe_0->set_text("Hello Keybinding!!! 	\n\
 	 * w --> Call print with int using value copy, if change -> print first assigned \n\
@@ -44,8 +44,8 @@ bool run_frontend()
 	 ");
 	textframe_0->set_background_color(4);
 
-	nci::Point2D origin_text_1(1, screen_size.height/2);
-	nci::Size2D size_text_1(screen_size.width, screen_size.height/2);
+	nci::Point2D origin_text_1(0, screen_size.height/2 - 1);
+	nci::Size2D size_text_1(screen_size.width - 2, screen_size.height/2);
 	std::shared_ptr<nci::TextFrame> textframe_1(new nci::TextFrame("TextFrame_1", origin_text_1, size_text_1));
 	textframe_1->set_text("");
 	textframe_1->set_runnable(true);	/* Runnable to handle keybinding */
@@ -81,9 +81,6 @@ int main()
 	{
 		nci::tear_down_ncurses();
 	}
-
-	/* Create a thread to change data after a while */
-	// TODO
 
 	if (!result)
 		std::cout << "Could not run manager" << std::endl;
