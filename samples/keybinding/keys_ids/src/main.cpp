@@ -39,11 +39,8 @@ int main()
 		nci::tear_down_ncurses();
 	}
 
-	/* Create a thread to change data after a while */
-	// TODO
-
 	if (!result)
-		std::cout << "Could not run manager" << std::endl;
+		std::cout << "Check the log to see keys" << std::endl;
 
 	std::cout << "End of execution" << std::endl;
 	return 0;
