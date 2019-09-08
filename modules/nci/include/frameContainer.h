@@ -51,7 +51,8 @@ public:
     void add(F frame, Point2D origin = Point2D(0, 0))
     {
         const Point2D relative = frame->get_origin();
-        frame->move(relative + origin);
+        Point2D final_origin = relative + origin;
+        frame->move(final_origin);
         _frames.push_back(frame);
     }
 

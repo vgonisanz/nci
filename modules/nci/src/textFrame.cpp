@@ -25,7 +25,7 @@ _editable(false)
 
 TextFrame::~TextFrame()
 {
-    std::cout << "Destroying frame: " << _id << std::endl;
+    std::cout << "Destroying textframe: " << _id << std::endl;
 }
 
 void TextFrame::draw()

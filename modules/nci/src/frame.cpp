@@ -22,7 +22,6 @@ Frame::Frame(std::string id, Point2D origin, Size2D size, bool has_border)
 Frame::~Frame()
 {
     std::cout << "Destroying frame: " << _id << std::endl;
-
     destroy();
 }
 
@@ -54,6 +53,9 @@ void Frame::create(Point2D origin, Size2D size)
 
 void Frame::destroy()
 {
+    /* "free" smart pointers */
+    _children.clear();
+
     if(_has_border)
         delwin(_border);
     delwin(_content);
@@ -72,17 +74,18 @@ void Frame::draw()
 void Frame::move(Point2D origin)
 {
     Point2D original = get_origin();
-    std::cout << "move: " << _id
-        << " from (" << original.x << "," << original.y << ")"
-        << " to (" << origin.x << "," << origin.y << ")"
-        << std::endl;
+
     if(_has_border)
     {
         mvwin(_border, origin.y, origin.x);
-        origin.x += 1;
-        origin.y += 1;
+        origin += 1;
     }
     mvwin(_content, origin.y, origin.x);
+
+    std::cout << "move: " << _id
+    << " from (" << original.x << "," << original.y << ")"
+    << " to (" << origin.x << "," << origin.y << ")"
+    << std::endl;
 }
 
 void Frame::resize(Size2D size)
@@ -122,7 +125,7 @@ void Frame::box_me()
     if(!_has_border)
         return;
 
-    box(_border);
+    box(_border, _id);
     wrefresh(_border);
 }
 
@@ -140,7 +143,7 @@ void Frame::remove_attribute(int attr)
 void Frame::apply_attributes()
 {
     wattron(_content, _attributes);
-    
+
     Point2D cursor;
     getyx(_content, cursor.y, cursor.x);
 
