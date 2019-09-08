@@ -109,7 +109,7 @@ void TextFrame::edit_mode()
                 std::cout << "KEY_ENTER" << std::endl;
                 exit = true;
                 break;
-            case KEYS::ESC:
+            case KEYS::ESCAPE:
                 std::cout << "KEY_EXIT" << std::endl;
                 exit = true;
                 break;
