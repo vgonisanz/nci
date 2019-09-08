@@ -48,10 +48,20 @@ public:
     // run
 
     template <typename F>
-    void add(F frame, Point2D origin = Point2D(0, 0))
+    void add(F frame, Point2D origin = Point2D(0, 0), Size2D parent_size = Size2D(0, 0))
     {
         const Point2D relative = frame->get_origin();
+        Size2D size = frame->get_size();
+
+        /* Max size parent's size to avoid problems rendering */
+        if(size.width >= parent_size.width)
+            size.width = parent_size.width - 2;
+
+        if(size.height >= parent_size.height)
+            size.height = parent_size.height - 2;
+
         Point2D final_origin = relative + origin;
+        frame->resize(size);
         frame->move(final_origin);
         _frames.push_back(frame);
     }

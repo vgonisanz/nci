@@ -67,13 +67,41 @@ public:
      */
     virtual void run() = 0;
 
+    /**
+     * \brief Get Point2D to the origin of the content.
+     */
+    virtual Point2D get_origin() const = 0;
+
+    /**
+     * \brief Get Size2D to the origin of the content.
+     */
+    virtual Size2D get_size() const = 0;
+    /**
+     * \brief Get Point2D to the origin of the border.
+     *
+     * If no border exist, return (0, 0)
+     */
+    virtual Point2D get_border_origin() const = 0;
+    /**
+     * \brief Get Point2D to the origin of the border.
+     *
+     * If no border exist, return (0, 0)
+     */
+    virtual Size2D get_border_size() const = 0;
+
+    /**
+     * \brief Get Point2D to the current cursor position.
+     */
     template <typename F>
     void add(F frame)
     {
         Point2D origin;
+        const Size2D parent_size = get_size();
+
         /* Content shall exist always by design */
         getbegyx(_content, origin.y, origin.x);
-        _children.add(frame, origin);
+
+        _children.add(frame, origin, parent_size);
     }
     virtual void keybind(int character, std::function<void()> function) = 0;
 
