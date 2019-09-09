@@ -10,12 +10,11 @@ namespace nci
 
 TextFrame::TextFrame(std::string id, Point2D origin, Size2D size):
 Frame(id, origin, size, false),
-_text(""),
+_text(std::string(size.width * size.height, KEYS::SPACE)),
 _editable(false)
 {
     std::cout << "Create text frame: " << _id << std::endl;
 
-    _text.reserve(size.width * size.height);
     keybind('e', std::bind(&TextFrame::edit_mode, this));
 }
 
@@ -34,8 +33,10 @@ void TextFrame::draw()
     color_me();
 
     /* Relative drawing to win */
+    Point2D init_pos = cursor_get_position();
     mvwaddstr(_content, 0, 0, _text.c_str());
     wrefresh(_content);
+    cursor_set_position(init_pos);
 }
 
 void TextFrame::run()
@@ -55,6 +56,7 @@ void TextFrame::set_text(std::string text)
 {
     _text = text;
     cursor_set_position(_text.size());
+    _text.resize(_text.capacity(), KEYS::SPACE); /* fill whole window with spaces */
 }
 
 std::string TextFrame::get_text()
@@ -100,7 +102,7 @@ void TextFrame::edit_mode()
                 break;
             case KEYS::I_KEY_BACKSPACE:
                 position = cursor_left();
-                _text[position.y * size.width + position.x] = ' ';
+                _text[position.y * size.width + position.x] = KEYS::SPACE;
                 wdelch(_content);
                 break;
             case KEYS::ENTER:
