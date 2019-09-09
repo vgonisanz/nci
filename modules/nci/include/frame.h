@@ -138,7 +138,7 @@ public:
     /**
      * \brief Move the cursor right
      */
-    virtual Point2D cursor_right(bool update = true);
+    virtual Point2D cursor_right();
     /**
      * \brief Move the cursor up
      */

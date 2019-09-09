@@ -77,6 +77,7 @@ void TextFrame::edit_mode()
     apply_attributes();
 
     Point2D position = cursor_get_position();
+    const Size2D size = get_size();
 
     int ch;
     bool exit = false;
@@ -99,7 +100,7 @@ void TextFrame::edit_mode()
                 break;
             case KEYS::I_KEY_BACKSPACE:
                 position = cursor_left();
-                _text[position.y * position.x + position.x] = ' ';
+                _text[position.y * size.width + position.x] = ' ';
                 wdelch(_content);
                 break;
             case KEYS::ENTER:
@@ -113,9 +114,9 @@ void TextFrame::edit_mode()
             default:
                 if(ch >= KEYS::SPACE && ch <= KEYS::TILDE)
                 {
-                    position = cursor_right(false); /* update object cursor */
                     waddch(_content, ch);
-                    _text[position.y * position.x + position.x - 1] = ch;
+                    _text[position.y * size.width + position.x] = ch;
+                    position = cursor_get_position();
                 }
                 beep();
                 break;
