@@ -87,4 +87,5 @@ endif()
 # Project step X: Printing summary information
 # ------------------------------------------------------------------------------------------------------
 print_project_info()
+create_last_log_target()
 message("Profiling: ${BUILD_PROFILING}, Coverage: ${BUILD_COVERAGE}")
