@@ -22,7 +22,6 @@ bool run_frontend()
 	nci::Point2D origin_2(screen_size.width/2, 0);
 	nci::Size2D size_2(screen_size.width/2, screen_size.height/2);
 	std::shared_ptr<nci::Frame> frame_2(new nci::Frame("Frame_2", origin_2, size_2));
-	frame_2->set_border(false);
 	frame_2->set_background_color(4);
 
 	nci::Point2D origin_3(screen_size.width/2, screen_size.height/2);
@@ -36,6 +35,7 @@ bool run_frontend()
 	nci::Point2D origin_4(screen_size.width/4, screen_size.height/4);
 	nci::Size2D size_4(screen_size.width/2, screen_size.height/2); /* Check how manage sizes */
 	std::shared_ptr<nci::Frame> frame_4(new nci::Frame("Frame_4", origin_4, size_4));
+	frame_4->set_border(false);
 	frame_4->set_background_color(6);
 
 	manager.add(frame_1);
