@@ -312,8 +312,6 @@ Point2D Frame::cursor_down()
 
 void Frame::set_border(bool value)
 {
-    destroy();
-
     Point2D origin;
     Size2D size;
 
@@ -328,6 +326,7 @@ void Frame::set_border(bool value)
         size = get_size();
     }
 
+    destroy();
     _has_border = value;
     create(origin, size);
 }

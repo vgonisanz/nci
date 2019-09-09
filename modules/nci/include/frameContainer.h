@@ -56,10 +56,10 @@ public:
         const uint8_t correction = 2; /* Reduce by 2 size to avoid if has border */
 
         /* Max size parent's size to avoid problems rendering */
-        if(size.width >= parent_size.width)
+        if(size.width > parent_size.width)
             size.width = parent_size.width - correction;
 
-        if(size.height >= parent_size.height)
+        if(size.height > parent_size.height)
             size.height = parent_size.height - correction;
 
         Point2D final_origin = relative + origin;
