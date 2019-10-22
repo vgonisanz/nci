@@ -6,9 +6,21 @@ NCI is a C++ Library to develop terminal interfaces in a easy way to present you
 
 ## Dependencies
 
-* ncurses.
+* For compile core you need development ncursesw library.
+
+```
+sudo apt-get install libncursesw5-dev.
+```
+
+* For documentation Doxygen & PlantUML:
+
+```
+sudo apt install doxygen plantuml
+```
 
 ## Compiling
+
+* At the root folder:
 
 ```
 mkdir build && cd build
