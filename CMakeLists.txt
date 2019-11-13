@@ -36,7 +36,7 @@ endif()
 # ------------------------------------------------------------------------------------------------------
 # "Global" variables
 set(PROJECT_NCI_INCLUDE_PATH "")
-set(PROJECT_NCI_LIB_TARGETS "ncurses")
+set(PROJECT_NCI_LIB_TARGETS "ncursesw")
 set(PROJECT_NCI_LIB_PATHS "")
 
 # Append includes manually (scope not allow to add inside nested add_directories)
@@ -46,6 +46,8 @@ list(APPEND PROJECT_NCI_LIB_TARGETS "")
 create_project_dist_clean()
 configure_project_variables()
 configure_project_flags()
+
+set(PROJECT_NCI_BIN_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 if(BUILD_PROFILING)
     configure_project_profiling()
@@ -85,4 +87,5 @@ endif()
 # Project step X: Printing summary information
 # ------------------------------------------------------------------------------------------------------
 print_project_info()
+create_last_log_target()
 message("Profiling: ${BUILD_PROFILING}, Coverage: ${BUILD_COVERAGE}")

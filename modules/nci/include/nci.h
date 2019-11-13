@@ -7,15 +7,21 @@
  *
  * Namespace to include all required elemens in nci library
  *
- * @license LGPL v3.0 
+ * @license LGPL v3.0
  */
 #ifndef __NCI_HEADER_FILE_H
 #define __NCI_HEADER_FILE_H
 
+#include <ncurses.h>
 #include "types.h"
+#include "imanager.h"
 
-namespace nci 
+namespace nci
 {
+
+WINDOW* initialize_ncurses();
+void tear_down_ncurses();
+void feedback_ncurses(bool print);
 
 }   // namespace nci
 #endif  /* __NCI_HEADER_FILE_H */

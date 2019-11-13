@@ -3,12 +3,14 @@
 #include <ctime>
 #include <filesystem>
 
+#include "nci.h"
 #include "virtualFrame.h"
 
 namespace nci
 {
 
 WINDOW* IManager::_stdscr = nullptr;
+bool IManager::_initialized = false;
 
 IManager::IManager():
 _logstream(),
@@ -16,32 +18,11 @@ _end_execution(false),
 _ch(-1)
 {
     /* ncurses initialization */
-    _stdscr = initscr();
-    raw();				            /* Line buffering disabled */
-	keypad(stdscr, TRUE);	        /* We get F1, F2... */
-	noecho();			            /* Don't echo() while we do getch */
+    if(_initialized)
+        throw std::runtime_error("You shall not create several IManagers");
 
-    /* Trick to avoid have to call getch to start drawing: TODO why is happening */
-    nodelay(stdscr, TRUE);
-    getch();
-    nodelay(stdscr, FALSE);
-
-    curs_set(CURSOR::INVISIBLE);
-    if (has_colors())
-    {
-        start_color();                  /* Allow color */
-        //use_default_colors();           /* Default colors */
-        if (can_change_color())         // TODO pallete colors
-        {
-            init_pair(1, COLOR_RED, COLOR_BLACK);
-            init_pair(2, COLOR_CYAN, COLOR_BLACK);
-            init_pair(3, COLOR_WHITE, COLOR_RED);
-            init_pair(4, COLOR_WHITE, COLOR_BLUE);
-            init_pair(5, COLOR_WHITE, COLOR_GREEN);
-            init_pair(6, COLOR_WHITE, COLOR_MAGENTA);
-        }
-    }
-
+    _stdscr = initialize_ncurses();
+    
     /* Redirect std::cout to a timestamp file log */
     time_t current_time;
     struct tm * time_info;
@@ -63,13 +44,13 @@ _ch(-1)
         << ", pairs: " << std::to_string(COLOR_PAIRS) << std::endl;
     std::cout << "Size: " << size.width << "x" << size.height << "." << std::endl;
     std::cout << "Baud rate: " << baudrate() << std::endl;
+
+    _initialized = true;
 }
 
 IManager::~IManager()
 {
-    /* Ncurses tear down */
-    noraw();
-    endwin();
+    tear_down_ncurses();
 
     /* "free" smart pointers */
     _children.clear();
@@ -81,14 +62,6 @@ IManager::~IManager()
 
 void IManager::init()
 {
-}
-
-void IManager::launch(std::shared_ptr<nci::Popup> popup)
-{
-    Size2D screen_size = get_size();
-    popup->move(Point2D(screen_size.width/4, screen_size.height/4));
-    popup->resize(Size2D(screen_size.width/2, screen_size.height/2));
-    popup->run();
 }
 
 Size2D IManager::get_size()
@@ -151,6 +124,8 @@ bool IManager::run()
 
     int current = -1;
 
+    redraw();
+
     while(_end_execution == false)
     {
         current += 1;
@@ -161,10 +136,7 @@ bool IManager::run()
             current = _children.size() - 1;
 
         std::cout << "Running frame: " << current << std::endl;
-        //children.at(current)->run(); /* to fix */
         _children.at(current)->run();
-
-        redraw();   /* It is really needed? TODO */
 
         _ch = getch(); /* Block for a new entry */
 

@@ -250,6 +250,16 @@ macro(create_documentation_target)
         message("Doxygen need to be installed to generate the doxygen documentation")
     endif()
 endmacro()
+###############################################################################
+# create_last_log_target: Create a target to print last nci log
+#   - Print the log thought the console
+#   - Use unix terminal command: ls -t | grep log.txt | head -n1
+###############################################################################
+macro(create_last_log_target)
+    add_custom_target(log
+        COMMAND cat $$\(ls -t | grep log.txt | head -n1 \)
+        )
+endmacro()
 
 ###############################################################################
 # print_project_info: PROJECT_NAME

@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.0)
 
 # Module step I: Set up project name
 # ------------------------------------------------------------------------------------------------------
-set(PROJ_NAME ncurses_box)
+set(PROJ_NAME nc_3_box)
 
 project(${PROJ_NAME})
 

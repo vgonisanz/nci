@@ -25,6 +25,7 @@ class TextFrame : public Frame
 {
 protected:
     std::string _text;
+    bool _editable;
 
 public:
     TextFrame(std::string id, Point2D origin = Point2D(0, 0), Size2D size = Size2D(1, 1));
@@ -35,6 +36,10 @@ public:
 
     void set_text(std::string text);
     std::string get_text();
+
+    void set_editable(bool edit);
+
+    void edit_mode();
 };
 
 }   // namespace nci
