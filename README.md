@@ -8,6 +8,11 @@ NCI is a C++ Library to develop terminal interfaces in a easy way to present you
 
 * ncurses.
 
+It should be installed (depeneding on the linux distribution):
+```
+    sudo apt install libncurses5-dev libncursesw5-dev
+```
+
 ## Compiling
 
 ```
