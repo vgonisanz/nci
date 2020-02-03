@@ -1,7 +1,13 @@
 #include "imanager.h"
 
 #include <ctime>
-#include <filesystem>
+#ifdef __cpp_lib_filesystem
+    #include <filesystem>
+    using fs = std::filesystem;
+#elif __cpp_lib_experimental_filesystem
+    #include <experimental/filesystem>
+    using fs = std::experimental::filesystem;
+#endif
 
 #include "nci.h"
 #include "virtualFrame.h"

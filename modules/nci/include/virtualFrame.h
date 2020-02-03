@@ -22,6 +22,7 @@
 
 namespace nci
 {
+class Popup;
 
 class VirtualFrame
 {
@@ -32,6 +33,7 @@ protected:
     std::string _id;
     FrameContainer _children;
     KeybindingContainer _keys;
+    std::shared_ptr<Popup> _help_popup;
 
     int _attributes;
     int _background_color;
@@ -104,6 +106,7 @@ public:
         _children.add(frame, origin, parent_size);
     }
     virtual void keybind(int character, std::function<void()> function) = 0;
+    virtual void generate_help_pop_from_keybinding() = 0;
 
     virtual void set_background_color(int color_id) = 0;
     virtual void set_runnable(bool runnable) = 0;

@@ -158,6 +158,13 @@ public:
     virtual void set_border(bool value);
     virtual void set_runnable(bool runnable);
     void keybind(int character, std::function<void()> function);
+
+    /**
+     * \brief Generate a popup attach to key given with usage info
+     *
+     * * Note: By default h key is used.
+     */
+    virtual void generate_help_pop_from_keybinding();
 };
 
 }   // namespace nci

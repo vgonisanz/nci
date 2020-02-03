@@ -18,6 +18,11 @@ sudo apt-get install libncursesw5-dev.
 sudo apt install doxygen plantuml
 ```
 
+It should be installed (depeneding on the linux distribution):
+```
+    sudo apt install libncurses5-dev libncursesw5-dev
+```
+
 ## Compiling
 
 * At the root folder:

@@ -2,7 +2,7 @@
 
 #include "nci.h"
 #include "imanager.h"
-#include "popup.h"
+#include "frame.h"
 
 /**
  * Create a frame that use whole screen
@@ -13,18 +13,18 @@ bool run_frontend()
 	nci::IManager manager;
 
 	/* Create a standalone popup */
-	nci::Size2D screen_size2 = nci::IManager::get_size();
-	std::cout << "screen_size2: " << screen_size2.width << ", " << screen_size2.height << std::endl;
+	nci::Size2D screen_size = nci::IManager::get_size();
+	std::cout << "screen_size: " << screen_size.width << ", " << screen_size.height << std::endl;
 
-	std::shared_ptr<nci::Popup> popup_0(new nci::Popup("Popup_0"));
-	popup_0->set_background_color(2);
-	popup_0->set_title("Informative popup");
-	popup_0->set_text("Hello world popup in da jaus!");
-	//popup_0->get_border_size();
-	popup_0->run();
-	//anager.launch(popup_0);
+	nci::Point2D origin_1(0, 0);
+	nci::Size2D size_1(screen_size.width, screen_size.height);
+	std::shared_ptr<nci::Frame> frame_1(new nci::Frame("Frame_1", origin_1, size_1));
+	frame_1->set_background_color(3);
+	frame_1->set_border(true);	/* true by default */
+	frame_1->generate_help_pop_from_keybinding();
 
-	return true;
+	manager.add(frame_1);
+	return manager.run();
 }
 
 int main()
