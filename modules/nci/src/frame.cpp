@@ -352,10 +352,11 @@ void Frame::generate_help_pop_from_keybinding()
     std::cout << "Generating help popup" << std::endl;
 	std::shared_ptr<nci::Popup> help_popup(new nci::Popup("Help Popup"));
     _help_popup = help_popup;
-    this->keybind('h', std::bind(&Popup::run, _help_popup));
 	_help_popup->set_background_color(2);
 	_help_popup->set_title("Informative popup");
 	_help_popup->set_text("Hello world popup in da jaus!");
+    set_runnable(true);
+    keybind('h', std::bind(&Popup::run, _help_popup));
 }
 
 } /* namespace nci */
