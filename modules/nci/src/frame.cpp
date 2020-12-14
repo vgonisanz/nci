@@ -16,6 +16,7 @@ Frame::Frame(std::string id, Point2D origin, Size2D size, bool has_border)
     _id = id;
     _background_color = 0;
     _attributes = A_NORMAL;
+    _is_selected = false;
 
     create(origin, size);
 }
@@ -68,6 +69,7 @@ void Frame::draw()
 
     color_me();
     box_me();
+    border_selected();
     wrefresh(_content);
     _children.draw();
 }
@@ -112,13 +114,33 @@ void Frame::run()
     if(!_runnable)
         return;
 
+    set_selected(true);
+    draw();
     for(auto child: _children)
         child->run();
+    set_selected(false);
 }
 
 void Frame::set_background_color(int color_id)
 {
     _background_color = color_id;
+}
+
+int Frame::get_background_color() const
+{   
+    int color = _background_color;
+    return color;
+}
+
+
+void Frame::set_selected(bool highlight)
+{
+    _is_selected = highlight;
+}
+
+bool Frame::get_selected() const
+{
+    return _is_selected;
 }
 
 void Frame::box_me()
@@ -178,6 +200,16 @@ void Frame::color_me()
     wbkgd(_content, COLOR_PAIR(_background_color));
 }
 
+void Frame::border_selected()
+{
+    if(get_selected())
+        wbkgd(_border, A_REVERSE);
+    else
+        color_me();
+    
+    wrefresh(_border);
+
+}
 
 Point2D Frame::get_origin() const
 {

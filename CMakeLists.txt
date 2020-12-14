@@ -36,7 +36,7 @@ endif()
 # ------------------------------------------------------------------------------------------------------
 # "Global" variables
 set(PROJECT_NCI_INCLUDE_PATH "")
-set(PROJECT_NCI_LIB_TARGETS "ncursesw")
+set(PROJECT_NCI_LIB_TARGETS "ncurses")
 set(PROJECT_NCI_LIB_PATHS "")
 
 # Append includes manually (scope not allow to add inside nested add_directories)
