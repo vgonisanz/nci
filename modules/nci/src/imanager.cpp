@@ -145,30 +145,8 @@ bool IManager::run()
         std::cout << "Running frame: " << current << std::endl;
     
         _children.at(current)->run();
-        _ch = getch(); /* Block for a new entry */
-        //_children.at(2)->get_background_color
-
-        switch(_ch)
-        {
-            case 'q':
-                _end_execution = true;
-                clear();
-                mvaddstr(0, 0, "User end execution. Push any button...");
-                getch();
-                break;
-            case 'n':
-                redraw();
-                break;
-            default:
-                break;
-        }
     }
     return true;
-}
-
-void IManager::test()
-{
-
 }
 
 } /* namespace nci */

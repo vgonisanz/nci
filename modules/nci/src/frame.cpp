@@ -1,5 +1,6 @@
 #include "frame.h"
 
+#include <string> 
 #include <ncurses.h>
 #include <sstream>
 
@@ -17,6 +18,8 @@ Frame::Frame(std::string id, Point2D origin, Size2D size, bool has_border)
     _background_color = 0;
     _attributes = A_NORMAL;
     _is_selected = false;
+    _ch = -1;
+    _end_execution = false;
 
     create(origin, size);
 }
@@ -113,12 +116,31 @@ void Frame::run()
     /* Frame and children no run if not active */
     if(!_runnable)
         return;
-
+    
     set_selected(true);
     draw();
     for(auto child: _children)
         child->run();
     set_selected(false);
+    _ch = getch(); /* Block for a new entry */
+    
+        switch(_ch)
+        {
+            case 'q':
+                _end_execution = true;
+                clear();
+                mvaddstr(0,0, "User end execution. Push any button...");
+                getch();
+                break;
+            case 'n':
+                draw();
+                break;
+            case 'h':
+                generate_help_pop_from_keybinding();
+            default:
+                break;
+        }
+    
 }
 
 void Frame::set_background_color(int color_id)
@@ -385,10 +407,11 @@ void Frame::generate_help_pop_from_keybinding()
 	std::shared_ptr<nci::Popup> help_popup(new nci::Popup("Help Popup"));
     _help_popup = help_popup;
 	_help_popup->set_background_color(2);
-	_help_popup->set_title("Informative popup");
+	_help_popup->set_title("Informative popup - " + _id);
 	_help_popup->set_text("Hello world popup in da jaus!");
     set_runnable(true);
-    keybind('h', std::bind(&Popup::run, _help_popup));
+    _help_popup->run();
+    //keybind('h', std::bind(&Popup::run, _help_popup));
 }
 
 } /* namespace nci */

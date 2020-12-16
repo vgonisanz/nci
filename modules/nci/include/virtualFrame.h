@@ -40,6 +40,8 @@ protected:
     bool _runnable;
     bool _has_border;
     bool _is_selected;
+    int _ch;
+    bool _end_execution;
 
 public:
     VirtualFrame() {};
