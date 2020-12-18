@@ -22,9 +22,10 @@ bool run_frontend()
 	frame_1->set_background_color(3);
 	frame_1->set_border(true);	/* true by default */
 	frame_1->set_runnable(true);
-	//frame_1->generate_help_pop_from_keybinding();
-
+	frame_1->generate_help_pop_from_keybinding();
+	
 	manager.add(frame_1);
+
 	return manager.run();
 }
 

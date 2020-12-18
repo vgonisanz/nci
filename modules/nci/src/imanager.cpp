@@ -13,11 +13,13 @@
 #include "virtualFrame.h"
 #include <ncurses.h>
 #include <vector>
+#include "frameContainer.h"
 namespace nci
 {
 
 WINDOW* IManager::_stdscr = nullptr;
 bool IManager::_initialized = false;
+FrameContainer IManager::_children;
 
 IManager::IManager():
 _logstream(),

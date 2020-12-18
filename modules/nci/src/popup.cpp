@@ -98,6 +98,7 @@ void Popup::run()
             case 'q':
                 end_execution = true;
                 wclear(_border);
+                nci::IManager::redraw();
                 break;
             default:
                 break;

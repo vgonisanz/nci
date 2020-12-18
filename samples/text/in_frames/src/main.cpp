@@ -20,6 +20,7 @@ bool run_frontend()
 	std::shared_ptr<nci::Frame> frame_0(new nci::Frame("Frame_0", origin_0, size_0));
 	frame_0->set_background_color(6);
 	frame_0->set_runnable(true);
+	frame_0->generate_help_pop_from_keybinding();
 
 	/* Create a standalone text label */
 	nci::Point2D origin_text_0(0, 0);
@@ -33,6 +34,8 @@ bool run_frontend()
 	std::shared_ptr<nci::Frame> frame_1(new nci::Frame("Frame_1", origin_1, size_1));
 	frame_1->set_background_color(3);
 	frame_1->set_runnable(true);
+	frame_1->generate_help_pop_from_keybinding();
+	
 
 	/* Create a children text for red frame */
 	nci::Point2D origin_text_1(0, 0);
@@ -46,6 +49,8 @@ bool run_frontend()
 	nci::Size2D size_2(screen_size.width/2, screen_size.height/2);
 	std::shared_ptr<nci::Frame> frame_2(new nci::Frame("Frame_2", origin_2, size_2));
 	frame_2->set_background_color(4);
+	frame_2->set_runnable(true);
+	frame_2->generate_help_pop_from_keybinding();
 
 	/* Create a children text for blue frame */
 	nci::Point2D origin_text_2(0, 0);
@@ -59,6 +64,7 @@ bool run_frontend()
 	std::shared_ptr<nci::Frame> frame_3(new nci::Frame("Frame_3", origin_3, size_3));
 	frame_3->set_background_color(5);
 	frame_3->set_runnable(true);
+	frame_3->generate_help_pop_from_keybinding();
 
 	/* Create a children text for green frame */
 	nci::Point2D origin_text_3(0, 0);

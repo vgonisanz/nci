@@ -6,6 +6,7 @@
 
 #include "utils.h"
 #include "popup.h"
+#include <imanager.h>
 
 namespace nci
 {
@@ -121,8 +122,12 @@ void Frame::run()
     draw();
     for(auto child: _children)
         child->run();
+    
+    _keys.run();
+    
     set_selected(false);
-    _ch = getch(); /* Block for a new entry */
+    draw();
+    /* _ch = getch(); // Block for a new entry
     
         switch(_ch)
         {
@@ -136,11 +141,13 @@ void Frame::run()
                 draw();
                 break;
             case 'h':
-                generate_help_pop_from_keybinding();
+                //generate_help_pop_from_keybinding();
+                _keys.run();
+                break;
             default:
                 break;
         }
-    
+     */
 }
 
 void Frame::set_background_color(int color_id)
@@ -410,8 +417,7 @@ void Frame::generate_help_pop_from_keybinding()
 	_help_popup->set_title("Informative popup - " + _id);
 	_help_popup->set_text("Hello world popup in da jaus!");
     set_runnable(true);
-    _help_popup->run();
-    //keybind('h', std::bind(&Popup::run, _help_popup));
+    keybind('h', std::bind(&Popup::run, _help_popup));
 }
 
 } /* namespace nci */
