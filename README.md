@@ -2,9 +2,11 @@
 
 NCI is a C++ Library to develop terminal interfaces in a easy way to present your backend in a friendly way.
 
-# Usage
+You have the design documentation at [NCI wiki](https://vgonisanz.github.io/nci/)
 
-## Dependencies
+## Usage
+
+### Dependencies
 
 * For compile core you need development ncursesw library.
 
@@ -23,7 +25,7 @@ It should be installed (depeneding on the linux distribution):
     sudo apt install libncurses5-dev libncursesw5-dev
 ```
 
-## Compiling
+### Compiling
 
 * At the root folder:
 
@@ -46,9 +48,9 @@ cmake   -DCMAKE_BUILD_TYPE=Release \
         ..
 ```
 
-# Options
+## Options
 
-## Testing
+### Testing
 
 All test are located at `tests` folder. You can execute each test located at `bin` directory. All of them have `test_` as prefix and are executed as a common executable.
 
@@ -60,19 +62,19 @@ Note: To invoke ctest manually run:
 ctest -C Release -V
 ```
 
-## Coverage
+### Coverage
 
 To run binary with coverage setup use `BUILD_COVERAGE=ON` option. Execute `make all && make test && make coverage`
 
-## Profiling
+### Profiling
 
 To run binary with profiling setup use `BUILD_PROFILING=ON` option.
 This will generate a `gmon.out` file. This file can be read using `gprof`.
 
-## Documentation
+### Documentation
 
 To generate documentation from source files comments using Doxygen, set up `BUILD_DOC=ON` option. Execute `make doc`
 
-# Author
+## Author
 
 * vgoni <vgonisanz@gmail.com>
