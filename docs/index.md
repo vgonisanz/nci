@@ -1,37 +1,17 @@
-## Welcome to GitHub Pages
+## Welcome to GitHub Pages of NCurses Interfaces (nci)
 
-You can use the [editor on GitHub](https://github.com/vgonisanz/nci/edit/gh-pages/docs/index.md) to maintain and preview the content for your website in Markdown files.
+NCI is a lightweight library to create UI on the terminal in a fast way to provide
+a better experience using complex commands and consuming the outputs creating
+text-based user interfaces and a easy way to interact with any binary. In the
+following sections you can learn more about the different widgets and its
+behavior. Each section have a full description of each type of widget and
+the requirements used to desing and develop them.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+The most basic unit to draw scenes is the character. You cannot use pixels or similar,
+but NCI provide some helpers to give library users all they need to create scenes. 
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/vgonisanz/nci/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+* General: [this section](general) have the main description of the library.
+* Inputs: [this section](inputs) have the shortcuts and the user input description.
+* Widgets: [this section](widgets) have all groups of widgets to see the behavior and status.
+* References: Check out [websites](references/websites) that inspired the library and read about ncurses with
+  the pdf.
