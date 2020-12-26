@@ -6,7 +6,7 @@ NCI provide different popups in order to display messages:
 * [WarningPopup](buttons/warningpopup)
 * [ErrorPopup](buttons/errorpopup)
 
-## Requirements
+## Popups requirements
 
 * REQ-PUP-001: A popup shall appear always in the highest position in the manager stack.
 * REQ-PUP-002: A popup shall draw a box to limit it.

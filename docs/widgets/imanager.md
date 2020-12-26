@@ -13,7 +13,7 @@ NCI define a pure virtual class to manage rendeable elements. This class is the 
 
 **TODO**: Add example of image
 
-## Requirements
+## IManager requirements
 
 * REQ-IM-001: The manager shall draw all VirtualFrame in the whole interface.
 * REQ-IM-002: The manager shall store all VirtualFrames in a stack.

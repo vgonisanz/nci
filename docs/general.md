@@ -11,7 +11,7 @@ your app.
 ![test image 3](/images/nci.png)
 ![test 4](https://vgonisanz.github.io/nci/images/nci.png)
 
-## Requirements
+## General requirements
 
 * REQ-GEN-001: Every feature and property of this library shall have a requirement with an unique description.
 * REQ-GEN-002: GMock will test all features covered with these requirements.

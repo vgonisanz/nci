@@ -7,7 +7,7 @@ NCI provide different buttons in order to create friendly interfaces and input f
 * [SwitchButton](buttons/switchbutton)
 * [ToggleButton](buttons/togglebutton)
 
-## Requirements
+## Buttons requirements
 
 * REQ-BTN-001: A Radio button frame shall be selectable
 * REQ-BTN-002: A button frame shall trigger an action when pushed.

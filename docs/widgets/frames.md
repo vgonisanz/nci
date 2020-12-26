@@ -6,7 +6,7 @@ the behavior.
 
 **TODO**: Add example of image
 
-## Requirements
+## Frames requirements
 
 * REQ-FRM-001: Any Frame shall implement virtual run function to take the control of its behaviour. The frame
   can let the control in own of its children. When the actions are completed, the control is returned to the caller.

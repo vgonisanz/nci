@@ -1,4 +1,4 @@
-# Websites as reference
+# Websites & reference
 
 * Some ncurses bases: https://c-for-dummies.com/ncurses/source_code/index.php
 * Color reference: https://jonasjacek.github.io/colors/

@@ -5,7 +5,7 @@ widget can be used to provide data or just to display data.
 
 **TODO**: Add example of image
 
-## Requirements
+## TextFrame requirements
 
 * REQ-TXT-001: A TextFrame shall render only text.
 * REQ-TXT-002: A TextFrame shall not have border.
