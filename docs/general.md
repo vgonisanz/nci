@@ -4,7 +4,7 @@ The library base the references in two axis called X and Y, where X is the colum
 in the left/top. NCurses use a different notation so it is important to not to confuse when you are designing
 your app.
 
-![NCI Axis](https://vgonisanz.github.io/nci/images/nci_axis.png)
+![NCI Axis](https://media.githubusercontent.com/media/vgonisanz/nci/master/docs/images/nci_axis.png)
 
 ![test image](images/nci.png)
 ![test image 2](./images/nci.png)

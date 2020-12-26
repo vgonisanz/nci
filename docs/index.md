@@ -1,4 +1,6 @@
-## Welcome to GitHub Pages of NCurses Interfaces (nci)
+# NCI: NCurses Interfaces
+
+![NCI logo](https://media.githubusercontent.com/media/vgonisanz/nci/master/docs/images/nci.png)
 
 NCI is a lightweight library to create UI on the terminal in a fast way to provide
 a better experience using complex commands and consuming the outputs creating
