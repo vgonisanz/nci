@@ -46,8 +46,7 @@ class Button : public Frame
         virtual void set_selected(bool highlight);
         virtual void border_selected();
         virtual void set_pressed_ok_callback(std::function<void()> function);
-        void preprocess();
-        void postprocess();
+        void blink();
 
 };
 

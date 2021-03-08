@@ -10,7 +10,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <stdio.h>
-#include<stdlib.h>
+#include <stdlib.h>
 
 namespace nci
 {
@@ -126,21 +126,17 @@ void Button::pressed_ok()
     if(_ok_function)
     {
         std::cout << "Dentro del ok" << std::endl;
-        preprocess();
+        blink();
         _ok_function();
-        postprocess();
     }  
 }
 
-void Button::preprocess()
+void Button::blink()
 {
     invert_draw();
    
 }
 
-void Button::postprocess()
-{
-    std::cout << "Funcion de POSTprocesado del boton" << std::endl;
-}
+
 
 } /* namespace nci */
