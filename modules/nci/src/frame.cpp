@@ -1,10 +1,12 @@
 #include "frame.h"
 
+#include <string> 
 #include <ncurses.h>
 #include <sstream>
 
 #include "utils.h"
 #include "popup.h"
+#include <imanager.h>
 
 namespace nci
 {
@@ -16,6 +18,9 @@ Frame::Frame(std::string id, Point2D origin, Size2D size, bool has_border)
     _id = id;
     _background_color = 0;
     _attributes = A_NORMAL;
+    _is_selected = false;
+    _ch = -1;
+    _end_execution = false;
 
     create(origin, size);
 }
@@ -68,6 +73,7 @@ void Frame::draw()
 
     color_me();
     box_me();
+    border_selected();
     wrefresh(_content);
     _children.draw();
 }
@@ -111,14 +117,59 @@ void Frame::run()
     /* Frame and children no run if not active */
     if(!_runnable)
         return;
-
+    
+    set_selected(false);
+    draw();
     for(auto child: _children)
         child->run();
+    
+    _keys.run();
+    
+    set_selected(false);
+    draw();
+    /* _ch = getch(); // Block for a new entry
+    
+        switch(_ch)
+        {
+            case 'q':
+                _end_execution = true;
+                clear();
+                mvaddstr(0,0, "User end execution. Push any button...");
+                getch();
+                break;
+            case 'n':
+                draw();
+                break;
+            case 'h':
+                //generate_help_pop_from_keybinding();
+                _keys.run();
+                break;
+            default:
+                break;
+        }
+     */
 }
 
 void Frame::set_background_color(int color_id)
 {
     _background_color = color_id;
+}
+
+int Frame::get_background_color() const
+{   
+    int color = _background_color;
+    return color;
+}
+
+
+void Frame::set_selected(bool highlight)
+{
+    _is_selected = highlight;
+}
+
+bool Frame::get_selected() const
+{
+    return _is_selected;
 }
 
 void Frame::box_me()
@@ -178,6 +229,16 @@ void Frame::color_me()
     wbkgd(_content, COLOR_PAIR(_background_color));
 }
 
+void Frame::border_selected()
+{
+    if(get_selected())
+        wbkgd(_border, A_REVERSE);
+    else
+        color_me();
+    
+    wrefresh(_border);
+
+}
 
 Point2D Frame::get_origin() const
 {
@@ -353,7 +414,7 @@ void Frame::generate_help_pop_from_keybinding()
 	std::shared_ptr<nci::Popup> help_popup(new nci::Popup("Help Popup"));
     _help_popup = help_popup;
 	_help_popup->set_background_color(2);
-	_help_popup->set_title("Informative popup");
+	_help_popup->set_title("Informative popup - " + _id);
 	_help_popup->set_text("Hello world popup in da jaus!");
     set_runnable(true);
     keybind('h', std::bind(&Popup::run, _help_popup));

@@ -39,6 +39,9 @@ protected:
     int _background_color;
     bool _runnable;
     bool _has_border;
+    bool _is_selected;
+    int _ch;
+    bool _end_execution;
 
 public:
     VirtualFrame() {};
@@ -92,6 +95,12 @@ public:
     virtual Size2D get_border_size() const = 0;
 
     /**
+     * \brief Get background color.
+     */
+    virtual int get_background_color() const = 0;
+
+    virtual bool get_selected() const = 0;
+    /**
      * \brief Get Point2D to the current cursor position.
      */
     template <typename F>
@@ -110,6 +119,7 @@ public:
 
     virtual void set_background_color(int color_id) = 0;
     virtual void set_runnable(bool runnable) = 0;
+    virtual void set_selected(bool highlight) = 0;
     //virtual std::string get_name() const = 0;
 
 };

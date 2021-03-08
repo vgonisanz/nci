@@ -12,6 +12,7 @@
 #include "types.h"
 #include "frameContainer.h"
 #include "popup.h"
+#include "imanager.h"
 
 namespace nci
 {
@@ -22,7 +23,7 @@ private:
     static WINDOW *_stdscr;
     static bool _initialized;
 
-    FrameContainer _children;
+    static FrameContainer _children;
 
     std::ofstream _logstream;
     std::string _log_filename;
@@ -37,7 +38,7 @@ public:
     ~IManager();
 
     void init();
-    void redraw();
+    static void redraw();
     bool run();
 
     void test();
@@ -48,7 +49,7 @@ public:
     void add(F frame, Point2D origin = Point2D(0, 0), Size2D parent_size = Size2D(0, 0))
     {
         parent_size = get_size();
-        _children.add(frame, origin, parent_size);
+        IManager::_children.add(frame, origin, parent_size);
     }
 };
 

@@ -11,12 +11,15 @@
 
 #include "nci.h"
 #include "virtualFrame.h"
-
+#include <ncurses.h>
+#include <vector>
+#include "frameContainer.h"
 namespace nci
 {
 
 WINDOW* IManager::_stdscr = nullptr;
 bool IManager::_initialized = false;
+FrameContainer IManager::_children;
 
 IManager::IManager():
 _logstream(),
@@ -131,7 +134,7 @@ bool IManager::run()
     int current = -1;
 
     redraw();
-
+    
     while(_end_execution == false)
     {
         current += 1;
@@ -142,28 +145,10 @@ bool IManager::run()
             current = _children.size() - 1;
 
         std::cout << "Running frame: " << current << std::endl;
+    
         _children.at(current)->run();
-
-        _ch = getch(); /* Block for a new entry */
-
-        switch(_ch)
-        {
-            case 'q':
-                _end_execution = true;
-                clear();
-                mvaddstr(0, 0, "User end execution. Push any button...");
-                getch();
-                break;
-            default:
-                break;
-        }
     }
     return true;
-}
-
-void IManager::test()
-{
-
 }
 
 } /* namespace nci */

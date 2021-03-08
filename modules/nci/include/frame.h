@@ -75,6 +75,10 @@ public:
      */
     virtual void color_me();
     /**
+     * \brief Put color on border selected
+     */
+    virtual void border_selected();
+    /**
      * \brief Draw a box around the border
      *
      * This method only draw if border window exist
@@ -113,6 +117,16 @@ public:
      * If no border exist, return (0, 0)
      */
     virtual Point2D get_border_origin() const;
+    /**
+     * \brief Get background color.
+     */
+    virtual int get_background_color() const;
+
+    /**
+     * \brief Get border selected.
+     */
+    virtual bool get_selected() const;
+    virtual void set_selected(bool highlight);
     /**
      * \brief Get Point2D to the origin of the border.
      *
