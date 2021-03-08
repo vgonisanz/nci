@@ -14,7 +14,7 @@ Frame(id, Point2D(0, 0), Size2D(1, 1))
 {
     std::cout << "Create Popup: " << _id << std::endl;
 
-    Size2D size = nci::IManager::get_size();
+    Size2D size = IManager::get_size();
     create(Point2D(size.width/4, size.height/4), Size2D(size.width/2, size.height/2));
 }
 
@@ -98,7 +98,7 @@ void Popup::run()
             case 'q':
                 end_execution = true;
                 wclear(_border);
-                nci::IManager::redraw();
+                IManager::redraw();
                 break;
             default:
                 break;

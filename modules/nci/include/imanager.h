@@ -49,7 +49,7 @@ public:
     void add(F frame, Point2D origin = Point2D(0, 0), Size2D parent_size = Size2D(0, 0))
     {
         parent_size = get_size();
-        nci::IManager::_children.add(frame, origin, parent_size);
+        IManager::_children.add(frame, origin, parent_size);
     }
 };
 
