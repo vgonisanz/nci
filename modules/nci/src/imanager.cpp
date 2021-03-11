@@ -1,19 +1,13 @@
 #include "imanager.h"
 
-#include <ctime>
-#ifdef __cpp_lib_filesystem
-    #include <filesystem>
-    using fs = std::filesystem;
-#elif __cpp_lib_experimental_filesystem
-    #include <experimental/filesystem>
-    using fs = std::experimental::filesystem;
-#endif
-
+#include "frameContainer.h"
 #include "nci.h"
 #include "virtualFrame.h"
+
+#include <ctime>
 #include <ncurses.h>
 #include <vector>
-#include "frameContainer.h"
+
 namespace nci
 {
 
