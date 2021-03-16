@@ -14,6 +14,7 @@ namespace nci
 WINDOW* IManager::_stdscr = nullptr;
 bool IManager::_initialized = false;
 FrameContainer IManager::_children;
+std::streambuf* IManager::_coutbuf = nullptr;
 
 IManager::IManager():
 _logstream(),
@@ -53,14 +54,7 @@ _ch(-1)
 
 IManager::~IManager()
 {
-    tear_down_ncurses();
-
-    /* "free" smart pointers */
-    _children.clear();
-
-    /* Restore std::cout */
-    std::cout.rdbuf(_coutbuf);
-    //std::filesystem::copy(_log_filename, "last_log.txt");
+    abort();
 }
 
 void IManager::init()
@@ -143,6 +137,26 @@ bool IManager::run()
         _children.at(current)->run();
     }
     return true;
+}
+
+void IManager::execute_key_if_exist(int character)
+{
+    if( KEYS::ESCAPE == character)
+        abort();
+}
+
+void IManager::abort()
+{
+   tear_down_ncurses();
+
+    /* "free" smart pointers */
+    _children.clear();
+
+    /* Restore std::cout */
+    std::cout.rdbuf(_coutbuf);
+    //std::filesystem::copy(_log_filename, "last_log.txt");
+     
+    exit(0);
 }
 
 } /* namespace nci */

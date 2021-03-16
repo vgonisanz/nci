@@ -1,6 +1,7 @@
 #include "keybindingContainer.h"
 
 #include "virtualFrame.h"
+#include "imanager.h"
 
 namespace nci
 {
@@ -23,10 +24,10 @@ void KeybindingContainer::run()
 {
     uint16_t character;
 
-    while((character = getch()) != 'q')
+    while((character = getch()) != 'n')
     {
         std::cout << "User action in " << _id << " key: " << character << std::endl;
-
+        IManager::execute_key_if_exist(character);
         auto key = _keybinding.find(character);
         if (key == _keybinding.end())
             continue;
