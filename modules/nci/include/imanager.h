@@ -13,6 +13,7 @@
 #include "frameContainer.h"
 #include "popup.h"
 #include "imanager.h"
+#include "keybindingContainer.h"
 
 namespace nci
 {
@@ -24,14 +25,14 @@ private:
     static bool _initialized;
 
     static FrameContainer _children;
-
+    static std::streambuf *_coutbuf;   /* stdout store pointer */
+    static void abort();
+   
     std::ofstream _logstream;
     std::string _log_filename;
 
     int _ch;            /* Store last character readed */
     bool _end_execution;
-
-    std::streambuf *_coutbuf;   /* stdout store pointer */
 
 public:
     IManager();
@@ -39,8 +40,9 @@ public:
 
     void init();
     static void redraw();
+    static void execute_key_if_exist(int character);
     bool run();
-
+    
     void test();
     static Size2D get_size();    /* Return stdscr size */
     static void info();

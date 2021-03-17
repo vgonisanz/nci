@@ -118,7 +118,7 @@ void Frame::run()
     if(!_runnable)
         return;
     
-    set_selected(false);
+    set_selected(true);
     draw();
     for(auto child: _children)
         child->run();
