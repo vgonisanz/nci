@@ -25,15 +25,14 @@ bool run_frontend()
 	frame_2->set_background_color(4);
 
 	nci::Point2D origin_3(screen_size.width/2, screen_size.height/2);
-	nci::Size2D size_3(screen_size.width/2, screen_size.height/2 + 1); /* Check how manage sizes */
+	nci::Size2D size_3(screen_size.width/2, screen_size.height/2 + 1);
 	std::shared_ptr<nci::Frame> frame_3(new nci::Frame("Frame_3", origin_3, size_3));
 	frame_3->set_border(false);
 	frame_3->set_background_color(5);
 	frame_3->set_border(true);
 
-
 	nci::Point2D origin_4(screen_size.width/4, screen_size.height/4);
-	nci::Size2D size_4(screen_size.width/2, screen_size.height/2); /* Check how manage sizes */
+	nci::Size2D size_4(screen_size.width/2, screen_size.height/2);
 	std::shared_ptr<nci::Frame> frame_4(new nci::Frame("Frame_4", origin_4, size_4));
 	frame_4->set_border(false);
 	frame_4->set_background_color(6);

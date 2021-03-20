@@ -231,13 +231,15 @@ void Frame::color_me()
 
 void Frame::border_selected()
 {
+    if(!_has_border)
+        return;
+
     if(get_selected())
         wbkgd(_border, A_REVERSE);
     else
         color_me();
     
     wrefresh(_border);
-
 }
 
 Point2D Frame::get_origin() const
