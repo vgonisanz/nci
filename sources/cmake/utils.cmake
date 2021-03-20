@@ -5,25 +5,6 @@ macro(create_project_dist_clean)
     add_custom_command(TARGET distclean
         COMMAND make clean)
 endmacro()
-###############################################################################
-# check_project_guards:
-#   - This macro check project variables.
-#   - The scope of macro is the global, so works with project scope.
-###############################################################################
-macro(check_project_guards)
-    message(STATUS "Checking project guards...")
-
-    if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
-      message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there. You may need to remove CMakeCache.txt. ")
-    endif()
-
-    # Force to use one type of build
-    # Types available: DEBUG | RELEASE | RELWITHDEBINFO | MINSIZEREL
-    if (NOT CMAKE_BUILD_TYPE)
-        message(STATUS "No CMAKE_BUILD_TYPE detected. Default to Release")
-        set(CMAKE_BUILD_TYPE "Release")
-    endif()
-endmacro()
 
 ###############################################################################
 # configure_project_variables:
@@ -33,33 +14,13 @@ endmacro()
 macro(configure_project_variables)
     message(STATUS "Configuring project variables...")
 
-    # Required libraries, flags, and include files for compiling and linking against PROJ_MAIN_NAME (all targets)
-    set(RESOURCES_PATH "${CMAKE_CURRENT_SOURCE_DIR}/resources" CACHE PATH "Setting resources path" FORCE)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR}/bin)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
-    set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
-    # Set up a custom install path
-    if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-        set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/install/PROJECT_NCI" CACHE PATH "Changing default install path" FORCE)
-    endif()
-
-    # Set up library target folder
-    if(EXISTS ${CMAKE_TOOLCHAIN_FILE})
-        if(DEFINED ANDROID_ABI)
-            set(TARGET_ARCHITECTURE ${ANDROID_ABI})
-        else()
-            set(TARGET_ARCHITECTURE "Unknown")
-        endif()
-    else()
-        set(TARGET_ARCHITECTURE x86_64)
-    endif()
-
-    # Generate all output grouped by folders
-    # It is possible to add ${ARGET_ARCHITECTURE} to support in same place
-    # several archs, right now some problems with JNI avoid to use this aprox
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
 endmacro()
 
 ###############################################################################
@@ -68,8 +29,6 @@ endmacro()
 ###############################################################################
 macro(configure_project_flags)
     message(STATUS "Configuring project flags...")
-
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
     # Debug no optimize
     set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -O0 -DDEBUG")
@@ -91,6 +50,7 @@ endmacro()
 ###############################################################################
 # add_project_testing
 #   - This macro add GTest framework and initialize variables to use it
+#   - DEPRECATED with Conan approach.
 ###############################################################################
 macro(add_project_testing)
     # We need thread support
@@ -152,8 +112,7 @@ endmacro()
 #   - This macro add flags and create custom targets to coverage
 ###############################################################################
 macro(configure_project_coverage)
-    message(STATUS "Adding coverage flags, force debug configuration")
-    set(CMAKE_BUILD_TYPE "Debug")
+    message(STATUS "Adding coverage flags")
 
     # Add coverage flags
     set(GCC_COVERAGE_COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
@@ -161,31 +120,28 @@ macro(configure_project_coverage)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}" )
 
-    # Variables
-    set(PROJECT_NCI_COVERAGE_PATH ${CMAKE_CURRENT_BINARY_DIR}/coverage)
-
     # Create coverage report
-    add_custom_target(PROJECT_NCI-coverage)
-    add_custom_command(TARGET PROJECT_NCI-coverage
+    add_custom_target(coverage)
+    add_custom_command(TARGET coverage
         COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --green "Generating coverage..."
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_NCI_COVERAGE_PATH}
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/coverage
         COMMAND lcov --capture --directory ${CMAKE_CURRENT_BINARY_DIR}
-                     --output-file ${PROJECT_NCI_COVERAGE_PATH}/coverage.info
-        COMMAND lcov --remove ${PROJECT_NCI_COVERAGE_PATH}/coverage.info
-                     --output-file ${PROJECT_NCI_COVERAGE_PATH}/coverage-processed.info
+                     --output-file ${CMAKE_CURRENT_BINARY_DIR}/coverage/coverage.info
+        COMMAND lcov --remove ${CMAKE_CURRENT_BINARY_DIR}/coverage/coverage.info
+                     --output-file ${CMAKE_CURRENT_BINARY_DIR}/coverage/coverage-processed.info
                      '/usr/include/*'
-                     '*/build/gtest/*'
-        COMMAND genhtml ${PROJECT_NCI_COVERAGE_PATH}/coverage-processed.info --output-directory ${PROJECT_NCI_COVERAGE_PATH}/html
+                     '*/gtest/*'
+        COMMAND genhtml ${CMAKE_CURRENT_BINARY_DIR}/coverage/coverage-processed.info --output-directory ${CMAKE_CURRENT_BINARY_DIR}/coverage/html
         )
 
     # View coverage report
     add_custom_target(coverage-view
-        COMMAND firefox ${PROJECT_NCI_COVERAGE_PATH}/html/index.html)
+        COMMAND firefox ${${PROJ_MAIN_NAME}_COVERAGE_PATH}/html/index.html)
 
     # Clean coverage report
     add_custom_target(coverage-clean
         COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --green "Cleaning coverage data..."
-        COMMAND ${CMAKE_COMMAND} -E remove_directory "${PROJECT_NCI_COVERAGE_PATH}")
+        COMMAND ${CMAKE_COMMAND} -E remove_directory "${${PROJ_MAIN_NAME}_COVERAGE_PATH}")
 
     # Force distclean to execute coverage-clean
     add_dependencies(distclean coverage-clean)
@@ -210,55 +166,40 @@ macro(create_documentation_target)
     endif()
 
     find_package(Doxygen
-             REQUIRED dot
-             OPTIONAL_COMPONENTS mscgen dia
+             OPTIONAL_COMPONENTS dot mscgen dia
              )
 
     if(DOXYGEN_FOUND)
         # Any variable with DOXYGEN_ prefix is converted by doxygen_add_docs to file var
-        set(PROJECT_NCI_DOCUMENTATION_PATH ${PROJECT_BINARY_DIR}/doc)
-        set(DOXYGEN_SHOW_NAMESPACES YES)
-        set(DOXYGEN_SHOW_FILES YES)
-        set(DOXYGEN_OUTPUT_DIRECTORY ${PROJECT_NCI_DOCUMENTATION_PATH})
+        set(DOXYGEN_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/docs)
         set(DOXYGEN_EXCLUDE "${CMAKE_SOURCE_DIR}/build/"
                             "${CMAKE_SOURCE_DIR}/build-android/"
-                            "${CMAKE_SOURCE_DIR}/external"
                             )
 
-        doxygen_add_docs( doc
+        doxygen_add_docs( docs
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             COMMENT "Generating API documentation with Doxygen"
             )
 
         # Add clean target
-        add_custom_target(doc-clean)
-        add_custom_command(TARGET doc-clean
+        add_custom_target(docs-clean)
+        add_custom_command(TARGET docs-clean
            POST_BUILD
            COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --green "Cleaning documentation..."
            )
 
-        # Force distclean to execute doc-clean
-        add_dependencies(distclean doc-clean)
+        # Force distclean to execute docs-clean
+        add_dependencies(distclean docs-clean)
 
         # Add viewer target
         # View coverage report
-        add_custom_target(doc-view
-            COMMAND firefox ${PROJECT_NCI_DOCUMENTATION_PATH}/html/index.html)
+        add_custom_target(docs-view
+            COMMAND firefox ${${PROJ_MAIN_NAME}_DOCUMENTATION_PATH}/html/index.html)
 
         message(STATUS "Documentation configured.")
     else()
         message("Doxygen need to be installed to generate the doxygen documentation")
     endif()
-endmacro()
-###############################################################################
-# create_last_log_target: Create a target to print last nci log
-#   - Print the log thought the console
-#   - Use unix terminal command: ls -t | grep log.txt | head -n1
-###############################################################################
-macro(create_last_log_target)
-    add_custom_target(log
-        COMMAND cat $$\(ls -t | grep log.txt | head -n1 \)
-        )
 endmacro()
 
 ###############################################################################
@@ -269,7 +210,7 @@ endmacro()
 macro(print_project_info)
     message("\n")
     message("************************************************************************")
-    message("* Project: PROJECT_NCI ")
+    message("* Project: ${PROJ_MAIN_NAME} ")
     message("************************************************************************")
     message("\t - CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
     message("\t - CMake version: ${CMAKE_VERSION}")
