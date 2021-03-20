@@ -10,7 +10,7 @@ behavior. Each section have a full description of each type of widget and
 the requirements used to desing and develop them.
 
 The most basic unit to draw scenes is the character. You cannot use pixels or similar,
-but NCI provide some helpers to give library users all they need to create scenes. 
+but NCI provide some helpers to give library users all they need to create scenes.
 
 * General: [this section](general.md) have the main description of the library.
 * Inputs: [this section](inputs.md) have the shortcuts and the user input description.
