@@ -47,7 +47,6 @@ class Button : public Frame
         virtual void border_selected();
         virtual void set_button_callback(std::function<void()> function);
         void blink();
-
 };
 
 }   // namespace nci

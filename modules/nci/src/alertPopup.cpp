@@ -18,10 +18,8 @@ Popup(id, "PopUps")
     _size = IManager::get_size();
     create(Point2D(_size.width/4, _size.height/4), Size2D(_size.width/2, _size.height/2));
 	create_btn_ok();
-	create_btn_cancel();
-	
+	create_btn_cancel();	
 }
-
 
 AlertPopup::~AlertPopup()
 {
@@ -33,7 +31,6 @@ void AlertPopup::create(Point2D origin, Size2D _size)
 {
     move(origin);
     resize(_size);
-	
 }
 
 void AlertPopup::destroy()

@@ -18,7 +18,6 @@
 #include "types.h"
 #include "popup.h"
 #include "button.h"
-//#include "imanager.h"
 
 namespace nci
 {

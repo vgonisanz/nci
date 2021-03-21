@@ -21,7 +21,7 @@ _text_frame(std::string(size.width * size.height, KEYS::SPACE)),
 _button_callback(nullptr)
 {
     std::cout << "Create button: " << _id << std::endl;
-    keybind('\n',std::bind(&Button::button_pressed, this));
+    keybind('\n', std::bind(&Button::button_pressed, this));
 }
 
 Button::~Button()
@@ -34,7 +34,6 @@ void Button::draw()
     Point2D origin = get_origin();
     std::cout << "draw: " << _id << " at (" << origin.x << ", " << origin.y << ")" << std::endl;
     
-
     wclear(_content);
     box_me();
     border_selected();
@@ -50,15 +49,12 @@ void Button::draw()
 void Button::invert_draw(unsigned int animation_delay_in_us)
 {
     wrefresh(_border);
-
     /* Relative drawing to win */
     //Point2D init_pos = cursor_get_position();
     mvwaddstr(_content, 0, 0, _text_frame.get_text().c_str());
     wbkgd(_content, A_REVERSE);
     wrefresh(_content);
-
     usleep(animation_delay_in_us);
-
     draw();
 }
 
@@ -112,7 +108,6 @@ void Button::border_selected()
         color_me();
     
     wrefresh(_border);
-
 }
 
 void Button::set_button_callback(std::function<void()> function)
@@ -132,7 +127,6 @@ void Button::button_pressed()
 void Button::blink()
 {
     invert_draw();
-   
 }
 
 } /* namespace nci */
