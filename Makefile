@@ -59,7 +59,7 @@ build:  ## compile the source-code again
 
 run:  ## run the samples
 	@[ -d ${ROOTDIR}/build ] || ( echo "${ROOTDIR}/build folder is not created. Use make env-create first."; exit 1 )
-	@${ROOTDIR}/build/bin/greet
+	@${ROOTDIR}/build/bin/info_terminal
 
 lint: ## static code analysis with pylint
 	@[ -d ${ROOTDIR}/build/lint ] || mkdir -p ${ROOTDIR}/build/lint
@@ -70,7 +70,7 @@ lint: ## static code analysis with pylint
 test: build ## run tests with pytest
 	@[ -d ${ROOTDIR}/build ] || ( echo "${ROOTDIR}/build folder is not created. Use make env-create first."; exit 1 )
 	@echo "Running tests"
-	@CONAN_RUN_TESTS="True" conan build . -bf ${ROOTDIR}/build --build --test
+	@CONAN_RUN_TESTS="True" conan build . -bf ${ROOTDIR}/build --test
 	@echo "Generated report of tests at: ${ROOTDIR}/build/Testing path"
 
 coverage: test ## check test coverage

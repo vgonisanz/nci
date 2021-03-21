@@ -18,6 +18,18 @@ sudo dnf install make automake gcc gcc-c++ kernel-devel
 pip install conan gprof2dot
 ```
 
+### Compile the library
+
+You can configure the project, build, run the test, and run the basic executable with the following targets:
+
+```bash
+make env-create
+make test
+make run
+```
+
+To compile your changes once the environment is created just `make`
+
 lcov graphviz libncursesw5-dev doxygen plantuml
 
 
