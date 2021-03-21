@@ -25,6 +25,6 @@ file(GLOB ${PROJ_NAME}_SRC
 # Module step V: Create a library using the specified source files and build type in current project.
 # ------------------------------------------------------------------------------------------------------
 
-add_executable(${PROJ_NAME} src/main.cpp)
+add_executable(${PROJ_NAME} main.cpp)
 TARGET_LINK_LIBRARIES(${PROJ_NAME} nci ${CONAN_LIBS} ncurses
     nci )

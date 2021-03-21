@@ -1,2 +1,3 @@
-add_executable(select_frame src/main.cpp)
-target_link_libraries(select_frame nci ${CONAN_LIBS} ncurses)
+set(PROJ_NAME select_frame)
+add_executable(${PROJ_NAME} main.cpp)
+target_link_libraries(${PROJ_NAME} nci ${CONAN_LIBS} ncurses)
