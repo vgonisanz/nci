@@ -28,13 +28,13 @@ private:
     static void abort();
    
     std::ofstream _logstream;
-    std::string _log_filename;
+    static std::string _log_filename;
 
     int _ch;            /* Store last character readed */
     bool _end_execution;
 
 public:
-    IManager();
+    IManager(std::string log_path = "/tmp");
     ~IManager();
 
     void init();

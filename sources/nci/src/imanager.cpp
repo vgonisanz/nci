@@ -15,8 +15,9 @@ WINDOW* IManager::_stdscr = nullptr;
 bool IManager::_initialized = false;
 FrameContainer IManager::_children;
 std::streambuf* IManager::_coutbuf = nullptr;
+std::string IManager::_log_filename = "log.txt";
 
-IManager::IManager():
+IManager::IManager(std::string log_path):
 _logstream(),
 _end_execution(false),
 _ch(-1)
@@ -36,7 +37,7 @@ _ch(-1)
     time_info = localtime(&current_time);
 
     strftime(buffer, sizeof(buffer),"%Y-%m-%d-%H-%M-%S", time_info);
-    _log_filename = std::string(buffer) + "-log.txt";
+    _log_filename = log_path + "/log-" + std::string(buffer) + ".txt";
     _logstream.open(_log_filename, std::ofstream::out | std::ofstream::app);
     _coutbuf = std::cout.rdbuf();
     std::cout.rdbuf(_logstream.rdbuf());
@@ -155,7 +156,8 @@ void IManager::abort()
     /* Restore std::cout */
     std::cout.rdbuf(_coutbuf);
     //std::filesystem::copy(_log_filename, "last_log.txt");
-     
+
+    std::cout << "Log generated at: " << _log_filename; 
     exit(0);
 }
 
