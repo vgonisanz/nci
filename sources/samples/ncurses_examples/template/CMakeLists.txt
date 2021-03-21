@@ -1,7 +1,3 @@
-cmake_minimum_required (VERSION 3.0)
-
-# Module step I: Set up project name
-# ------------------------------------------------------------------------------------------------------
 set(PROJ_NAME template)
 
 project(${PROJ_NAME})
@@ -28,19 +24,6 @@ file(GLOB ${PROJ_NAME}_SRC
 # Module step V: Create a library using the specified source files and build type in current project.
 # ------------------------------------------------------------------------------------------------------
 
-add_executable(${PROJ_NAME} ${${PROJ_NAME}_HEADERS} ${${PROJ_NAME}_SRC} )
+add_executable(${PROJ_NAME} src/main.cpp)
+target_link_libraries(${PROJ_NAME} nci ${CONAN_LIBS} ncurses)
 
-
-# Module step VI: Link a target to given libraries. Set the name of libraries needed by the project.
-# ------------------------------------------------------------------------------------------------------
-TARGET_LINK_LIBRARIES(${PROJ_NAME} ${PROJECT_NCI_LIB_TARGETS})
-
-# Module step VII: Specify rules to run at install time. Copy generated library and PUBLIC headers to a destination.
-# ------------------------------------------------------------------------------------------------------
-#install(FILES ${${PROJ_NAME}_HEADERS}
-#        DESTINATION "${CMAKE_INSTALL_PREFIX}/sample_foo/include/${PROJ_NAME}"
-#        )
-
-#install(TARGETS ${PROJ_NAME}
-#        DESTINATION "${CMAKE_INSTALL_PREFIX}/sample_foo/lib"
-#        )

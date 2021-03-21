@@ -21,9 +21,9 @@ export CONAN_USER_HOME:=$(or $(CONAN_USER_HOME), ${ROOTDIR})
 export CONAN_USER:=$(or $(ARTIFACTORY_USER), "")
 export CONAN_PASSWORD:=$(or $(ARTIFACTORY_PASSWORD), "")
 export CONAN_URL:=$(or $(CONAN_URL), https://bintray.com/conan/conan-center)
-export CONAN_REMOTE:=$(or $(CONAN_REMOTE), onan-center)
+export CONAN_REMOTE:=$(or $(CONAN_REMOTE), conan-center)
 export CONAN_SKIP_UPLOAD:=$(or $(CONAN_SKIP_UPLOAD), --skip-upload)
-export CONAN_DEV_PROFILE:=$(or $(CONAN_DEV_PROFILE), "") # Use profiles/${OS_NAME}/dev-x86_64 in example
+export CONAN_DEV_PROFILE:=$(or $(CONAN_DEV_PROFILE), ".conan/profiles/default") # Use profiles/${OS_NAME}/dev-x86_64 in example
 
 define PRINT_HELP_PYSCRIPT
 import re, sys
@@ -60,7 +60,6 @@ build:  ## compile the source-code again
 run:  ## run the samples
 	@[ -d ${ROOTDIR}/build ] || ( echo "${ROOTDIR}/build folder is not created. Use make env-create first."; exit 1 )
 	@${ROOTDIR}/build/bin/greet
-	@${ROOTDIR}/build/bin/clsgreet
 
 lint: ## static code analysis with pylint
 	@[ -d ${ROOTDIR}/build/lint ] || mkdir -p ${ROOTDIR}/build/lint

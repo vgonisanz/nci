@@ -7,12 +7,14 @@ class ConanRecipe(ConanFile):
     license = "GNU LESSER GENERAL PUBLIC LICENSE"
     author = "vgonisanz@gmail.com"
     url = "https://github.com/vgonisanz/nci"
-    description =   "NCI is a lightweight library to create UI on the terminal in a fast way to provide "
-                    "a better experience using complex commands and consuming the outputs creating "
-                    "text-based user interfaces and a easy way to interact with any binary. In the "
-                    "following sections you can learn more about the different widgets and its "
-                    "behavior. Each section have a full description of each type of widget and "
-                    "the requirements used to desing and develop them."
+    description =  """
+        NCI is a lightweight library to create UI on the terminal in a fast way to provide
+        a better experience using complex commands and consuming the outputs creating
+        text-based user interfaces and a easy way to interact with any binary. In the
+        following sections you can learn more about the different widgets and its
+        behavior. Each section have a full description of each type of widget and
+        the requirements used to desing and develop them.
+    """
     topics = ("ncurses", "terminal", "gui")
     settings = "arch", "build_type", "compiler", "os"
     options = {
@@ -23,6 +25,10 @@ class ConanRecipe(ConanFile):
     }
     generators = "cmake"
     exports_sources = "sources/*"
+
+    def requirements(self):
+        self.requires("ncurses/6.2")
+        self.requires("gtest/1.8.1")
 
     def build(self):
         cmake = CMake(self)

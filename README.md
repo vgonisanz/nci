@@ -2,23 +2,25 @@
 
 ## Usage
 
-### Dependencies
+### Install dependencies
 
-* For compile core you need development ncursesw library.
+You will need to install CMake and Conan, using Ubuntu:
 
-```
-sudo apt-get install libncursesw5-dev
-```
-
-* For documentation Doxygen & PlantUML:
-
-```
-sudo apt install doxygen plantuml
+```bash
+sudo apt install cmake build-essential
+pip install conan gprof2dot
 ```
 
-It should be installed (depeneding on the linux distribution):
+Using Fedora:
+
+```bash
+sudo dnf install make automake gcc gcc-c++ kernel-devel
+pip install conan gprof2dot
 ```
-sudo apt install libncurses5-dev libncursesw5-dev
+
+lcov graphviz libncursesw5-dev doxygen plantuml
+
+
 ```
 
 ### Compiling
