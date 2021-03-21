@@ -47,7 +47,7 @@ bool run_frontend()
 	button_ok->set_border(true);
 	button_ok->set_text("Button 1");
 	button_ok->set_runnable(true);
-	button_ok->set_pressed_ok_callback(var);
+	button_ok->set_button_callback(var);
 	button_ok->generate_help_pop_from_keybinding();
 
 	/* Button 2 */
@@ -58,7 +58,7 @@ bool run_frontend()
 	button_2->set_border(true);
 	button_2->set_text("Button 2");
 	button_2->set_runnable(true);
-	button_2->set_pressed_ok_callback(foo);
+	button_2->set_button_callback(foo);
 	
 
 	manager.add(frame_0);
@@ -72,18 +72,14 @@ bool run_frontend()
 int main()
 {
 	bool result = false;
-	std::cout << "Point 1" << std::endl;
  	try
 	{
-		std::cout << "Point 2" << std::endl;
 		result = run_frontend();
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << "Point 3" << std::endl;
 		nci::tear_down_ncurses();
 	}
-	std::cout << "Point 4" << std::endl;
 	if (!result)
 		std::cout << "Could not run manager" << std::endl;
 	std::cout << "End of execution" << std::endl;

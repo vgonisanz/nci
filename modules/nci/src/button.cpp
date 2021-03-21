@@ -18,10 +18,10 @@ namespace nci
 Button::Button(std::string id, Point2D origin, Size2D size):
 Frame(id, origin, size, false),
 _text_frame(std::string(size.width * size.height, KEYS::SPACE)),
-_ok_function(NULL)
+_button_callback(nullptr)
 {
     std::cout << "Create button: " << _id << std::endl;
-    keybind('\n',std::bind(&Button::pressed_ok,this));
+    keybind('\n', std::bind(&Button::button_pressed, this));
 }
 
 Button::~Button()
@@ -34,7 +34,6 @@ void Button::draw()
     Point2D origin = get_origin();
     std::cout << "draw: " << _id << " at (" << origin.x << ", " << origin.y << ")" << std::endl;
     
-
     wclear(_content);
     box_me();
     border_selected();
@@ -50,15 +49,12 @@ void Button::draw()
 void Button::invert_draw(unsigned int animation_delay_in_us)
 {
     wrefresh(_border);
-
     /* Relative drawing to win */
     //Point2D init_pos = cursor_get_position();
     mvwaddstr(_content, 0, 0, _text_frame.get_text().c_str());
     wbkgd(_content, A_REVERSE);
     wrefresh(_content);
-
     usleep(animation_delay_in_us);
-
     draw();
 }
 
@@ -86,7 +82,7 @@ void Button::set_text(std::string text)
 {
     _text_frame.set_text(text);
     cursor_set_position(_text_frame.get_text().size());
-    _text_frame.get_text().resize(_text_frame.get_text().capacity(), KEYS::SPACE); /* fill whole window with spaces */
+    _text_frame.get_text().resize(_text_frame.get_text().capacity(), KEYS::SPACE);
 }
 
 std::string Button::get_text()
@@ -112,31 +108,25 @@ void Button::border_selected()
         color_me();
     
     wrefresh(_border);
-
 }
 
-void Button::set_pressed_ok_callback(std::function<void()> function)
+void Button::set_button_callback(std::function<void()> function)
 {
-    _ok_function = function;
+    _button_callback = function;
 }
 
-void Button::pressed_ok()
+void Button::button_pressed()
 {
-    std::cout << "Funcion privada pressed ok" << std::endl;
-    if(_ok_function)
+    if(_button_callback)
     {
-        std::cout << "Dentro del ok" << std::endl;
         blink();
-        _ok_function();
+        _button_callback();
     }  
 }
 
 void Button::blink()
 {
     invert_draw();
-   
 }
-
-
 
 } /* namespace nci */

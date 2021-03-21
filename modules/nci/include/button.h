@@ -1,9 +1,9 @@
 /**
  * @file            frame.h
  * @version         1.0
- * @date            August 2019
+ * @date            March 2021
  * @brief           Main nci workspace.
- * @author          vgonisanz
+ * @author          vgonisanz/ntamurejo
  *
  * Pure virtual Frame base class
  *
@@ -25,11 +25,11 @@ namespace nci
 class Button : public Frame
 {
     private:
-        void  pressed_ok();
+        void  button_pressed();
 
     protected:
         TextFrame _text_frame;
-        std::function<void()> _ok_function;
+        std::function<void()> _button_callback;
 
     public:
         Button(std::string id, Point2D origin = Point2D(0, 0), Size2D size = Size2D(1, 1));
@@ -45,9 +45,8 @@ class Button : public Frame
         virtual bool get_selected() const;
         virtual void set_selected(bool highlight);
         virtual void border_selected();
-        virtual void set_pressed_ok_callback(std::function<void()> function);
+        virtual void set_button_callback(std::function<void()> function);
         void blink();
-
 };
 
 }   // namespace nci
