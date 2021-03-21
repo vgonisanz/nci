@@ -157,7 +157,7 @@ void IManager::abort()
     std::cout.rdbuf(_coutbuf);
     //std::filesystem::copy(_log_filename, "last_log.txt");
 
-    std::cout << "Log generated at: " << _log_filename; 
+    std::cout << "Log generated at: " << _log_filename << std::endl; 
     exit(0);
 }
 
