@@ -7,7 +7,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_NCI_BIN_PATH}/samples/${CURRENT_BIN
 
 foreach(CURRENT_FILE ${ALL_FILES_CURRENT_PATH})
   if(IS_DIRECTORY ${CURRENT_FILE})
-    message("Adding samples: ${CURRENT_FILE}")
+    message(STATUS "Adding samples: ${CURRENT_FILE}")
     add_subdirectory( ${CURRENT_FILE} )
   endif()
 endforeach()

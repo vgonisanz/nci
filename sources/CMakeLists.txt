@@ -20,6 +20,6 @@ add_subdirectory(samples)
 
 enable_testing()
 add_subdirectory(tests)
-#create_documentation_target()
+create_documentation_target()
 
 print_project_info()
