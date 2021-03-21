@@ -94,7 +94,7 @@ version: ## get the current package version
 dist: ## create a local distributable
 	@CONAN_USER_HOME=~/ CONAN_RUN_TESTS=True conan create conanfile.py nci/${CURRENT_VERSION}@veridas/development -pr=${CONAN_DEV_PROFILE}
 
-clean-all: clean-build clean-dist clean-env clean-docker clean ## remove all build, artifacts and distributables
+clean-all: clean-build clean-dist clean ## remove all build, artifacts and distributables
 
 clean-build: ## remove build artifacts
 	@echo "Removing build folder"

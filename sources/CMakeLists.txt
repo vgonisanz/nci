@@ -15,6 +15,8 @@ if(CONAN_SETTINGS_BUILD_TYPE STREQUAL "Debug")
     configure_project_profiling()
 endif()
 
+set(PROJECT_NCI_BIN_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
 add_subdirectory(nci)
 add_subdirectory(samples)
 
