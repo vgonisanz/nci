@@ -13,7 +13,6 @@
 #include "frameContainer.h"
 #include "popup.h"
 #include "imanager.h"
-#include "keybindingContainer.h"
 
 namespace nci
 {
