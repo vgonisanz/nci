@@ -78,6 +78,7 @@ void Popup::draw()
     text_size.height = getmaxy(_text_window);
     mvwaddstr(_text_window, text_size.height/2, text_pos.x, _text.c_str());
     wrefresh(_text_window);
+    _children.draw();
 }
 
 void Popup::run()
@@ -86,24 +87,15 @@ void Popup::run()
 
     uint16_t ch = -1;
     bool end_execution = false;
+    if(!_runnable)
+        return;
+
+    for(auto child: _children)
+        child->run();
+    
+    _keys.run();
 
     draw();
-
-    while(end_execution == false)
-    {
-        ch = getch();
-        std::cout << "User input: " << ch << std::endl;
-        switch(ch)
-        {
-            case 'q':
-                end_execution = true;
-                wclear(_border);
-                IManager::redraw();
-                break;
-            default:
-                break;
-        }
-    }
 }
 
 void Popup::set_title(std::string title)
@@ -127,6 +119,5 @@ void Popup::box_me()
     top_box(_title_window, _id);
     bot_box(_text_window, _id);
 }
-
 
 } /* namespace nci */
