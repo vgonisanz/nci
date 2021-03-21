@@ -65,7 +65,7 @@ lint: ## static code analysis with pylint
 	@[ -d ${ROOTDIR}/build/lint ] || mkdir -p ${ROOTDIR}/build/lint
 	@touch ${ROOTDIR}/build/lint/report.txt
 	@echo "Lint analysis"
-	@find ${ROOTDIR}/nci -iname "*.cpp" -o -iname "*.h" | xargs cpplint --root=${ROOTDIR}/nci 2>&1 ${ROOTDIR}/build/lint/report.txt || (echo "Linting errors found" )
+	@find ${ROOTDIR}/sources/nci -iname "*.cpp" -o -iname "*.h" | xargs cpplint --root=${ROOTDIR}/sources/nci 2>&1 ${ROOTDIR}/build/lint/report.txt || (echo "Linting errors found" )
 
 test: build ## run tests with pytest
 	@[ -d ${ROOTDIR}/build ] || ( echo "${ROOTDIR}/build folder is not created. Use make env-create first."; exit 1 )
@@ -82,7 +82,8 @@ profiling: test ## check the profiling using tests
 	@echo "Running tests for generate profiling data"
 	@[ -d ${ROOTDIR}/build/profiling ] || mkdir -p ${ROOTDIR}/build/profiling
 	@gprof ${ROOTDIR}/build/bin/run_unit_tests ${ROOTDIR}/build/tests/gmon.out > ${ROOTDIR}/build/profiling/report.txt
-	@gprof2dot < ${ROOTDIR}/build/profiling/report.txt | dot -Tsvg -o ${ROOTDIR}/build/profiling/viewer.svg
+	@gprof2dot < ${ROOTDIR}/build/profiling/report.txt | dot -Tsvg -o 
+	@echo "Generated ${ROOTDIR}/build/profiling/viewer.svg and ${ROOTDIR}/build/profiling/report.txt"
 
 docs: ## generate project docs
 	@$(MAKE) docs -C ${ROOTDIR}/build
@@ -92,11 +93,11 @@ version: ## get the current package version
 	@echo $(CURRENT_VERSION)
 
 dist: ## create a local distributable
-	@CONAN_USER_HOME=~/ CONAN_RUN_TESTS=True conan create conanfile.py nci/${CURRENT_VERSION}@veridas/development -pr=${CONAN_DEV_PROFILE}
+	@CONAN_USER_HOME=~/ CONAN_RUN_TESTS=True conan create conanfile.py nci/${CURRENT_VERSION}@nci/development -pr=${CONAN_DEV_PROFILE}
 
-clean-all: clean-build clean-dist clean ## remove all build, artifacts and distributables
+clean-all: clean-dist clean ## remove all build, artifacts and distributables
 
-clean-build: ## remove build artifacts
+clean: ## remove build artifacts
 	@echo "Removing build folder"
 	@rm -rf ${ROOTDIR}/build/
 

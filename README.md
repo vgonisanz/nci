@@ -7,15 +7,17 @@
 You will need to install CMake and Conan, using Ubuntu:
 
 ```bash
-sudo apt install cmake build-essential
-pip install conan gprof2dot
+sudo apt install cmake build-essential lcov
+sudo apt install doxygen plantuml
+pip install conan gprof2dot cpplint
 ```
 
 Using Fedora:
 
 ```bash
-sudo dnf install make automake gcc gcc-c++ kernel-devel
-pip install conan gprof2dot
+sudo dnf install make automake gcc gcc-c++ kernel-devel lcov
+sudo dnf install doxygen plantuml
+pip install conan gprof2dot cpplint
 ```
 
 ### Compile the library
@@ -28,63 +30,23 @@ make test
 make run
 ```
 
-To compile your changes once the environment is created just `make`
-
-lcov graphviz libncursesw5-dev doxygen plantuml
-
-
-```
-
-### Compiling
-
-* At the root folder:
-
-```
-mkdir build && cd build
-cmake ..
-make -j4
-make install
-```
-
-For a **want it all** version:
-
-```
-cmake   -DCMAKE_BUILD_TYPE=Release \
-        -DBUILD_COVERAGE=ON \
-        -DBUILD_DOC=ON \
-        -DBUILD_PROFILING=ON \
-        -DBUILD_SAMPLES=ON \
-        -DBUILD_TESTS=ON \
-        ..
-```
-
-## Options
+- To compile your changes once the environment is created just `make build`
+- To debug the library edit the `.conan/profiles/default` setting `build_type=Debug`.
+- You can use your own profile using `CONAN_DEV_PROFILE=profile make build`.
 
 ### Testing
 
-All test are located at `tests` folder. You can execute each test located at `bin` directory. All of them have `test_` as prefix and are executed as a common executable.
+All tests are in `tests` folder, to run the tests `make test`.
 
-If you want to execute all just use `make test`.
+### Samples
 
-Note: To invoke ctest manually run:
-
-```
-ctest -C Release -V
-```
-
-### Coverage
-
-To run binary with coverage setup use `BUILD_COVERAGE=ON` option. Execute `make all && make test && make coverage`
-
-### Profiling
-
-To run binary with profiling setup use `BUILD_PROFILING=ON` option.
-This will generate a `gmon.out` file. This file can be read using `gprof`.
+Execute any sample at `build/bin` path manually.
 
 ### Documentation
 
-To generate documentation from source files comments using Doxygen, set up `BUILD_DOC=ON` option. Execute `make doc`
+You can check the nci wiki to know more about it.
+You can generate doxygen code reference using `make docs`
 
 ## Author
 
-* vgoni <vgonisanz@gmail.com>
+- vgoni <vgonisanz@gmail.com>
