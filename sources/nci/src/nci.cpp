@@ -5,6 +5,7 @@ namespace nci
 
 WINDOW* initialize_ncurses()
 {
+    setlocale(LC_ALL, "");
 
     WINDOW* general = initscr();
     raw();				            /* Line buffering disabled */
