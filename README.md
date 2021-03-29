@@ -1,5 +1,10 @@
 # NCI Project
 
+NCI is a C++ Library to develop terminal interfaces in a easy way to present your
+backend in a friendly way.
+
+- You have the design documentation at [NCI wiki](https://vgonisanz.github.io/nci/)
+
 ## Usage
 
 ### Install dependencies
@@ -22,7 +27,8 @@ pip install conan gprof2dot cpplint
 
 ### Compile the library
 
-You can configure the project, build, run the test, and run the basic executable with the following targets:
+You can configure the project, build, run the test, and run the basic executable with the
+following targets:
 
 ```bash
 make env-create
