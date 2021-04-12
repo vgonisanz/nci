@@ -67,7 +67,17 @@ void AlertPopup::create_btn_cancel()
 
 void AlertPopup::set_pressed_btn_ok_callback(std::function<void()> function)
 {
-	_button_ok->set_button_callback(function);
+	std::cout << "><<<<<<<<<<<<<<<<<<< PRESED OK BUTTON <<<<<<<<<" << std::endl;
+	_ok_user_function = function;
+	//_button_ok->set_button_callback(function);
+	close_popup();
+}
+
+void AlertPopup::close_popup()
+{
+	std::cout << "DENTRO CLOSE POPUP DESPUES DE OK USER" << std::endl;
+	_button_ok->set_button_callback(_ok_user_function);
+	std::cout << "AFTER-------------DENTRO CLOSE POPUP DESPUES DE OK USER" << std::endl;
 }
 
 void AlertPopup::set_pressed_btn_cancel_callback(std::function<void()> function)

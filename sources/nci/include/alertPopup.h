@@ -37,6 +37,7 @@ protected:
 
     std::shared_ptr<nci::Button> _button_ok;
     std::shared_ptr<nci::Button> _button_cancel;
+    std::function<void()> _ok_user_function;
 
 public:
     AlertPopup(std::string id, std::string text = "");
@@ -55,6 +56,8 @@ public:
 
     void callback_ok();
     void callback_cancel();
+
+    void close_popup();
 };
 
 }   // namespace nci

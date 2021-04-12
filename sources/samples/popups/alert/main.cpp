@@ -7,14 +7,12 @@
 
 void callback_ok()
 {
-	std::cout << "Button Ok pressed " << std::endl;
-	
+	std::cout << "-------------------Button Ok pressed-------------- " << std::endl;
 }
 
 void callback_cancel()
 {
 	std::cout << "Button Cancel pressed " << std::endl;
-	
 }
 
 /**
@@ -39,6 +37,7 @@ bool run_frontend()
 	popup_alert->set_modify_text_button_ok("Ok");
 	popup_alert->set_modify_text_button_cancel("Cancel");
 
+	std::cout << " ADD MANAGER ALERT>>>>>>>>>>>>>>>>>" << std::endl;
 	manager.add(popup_alert);
 	return manager.run();
 }

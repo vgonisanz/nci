@@ -6,7 +6,6 @@
 #include "nci.h"
 #include <string> 
 #include "utils.h"
-#include "popup.h"
 #include <unistd.h>
 #include <time.h>
 #include <stdio.h>
@@ -121,6 +120,8 @@ void Button::button_pressed()
     {
         blink();
         _button_callback();
+        std::cout << "::::::::::::::::::::::: BLINK" << std::endl;
+        return;
     }  
 }
 

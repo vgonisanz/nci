@@ -113,6 +113,11 @@ void IManager::redraw()
     //    frame->draw();
 }
 
+void IManager::clear_window()
+{
+    clear();
+}
+
 bool IManager::run()
 {
     if (_children.empty())
@@ -126,6 +131,7 @@ bool IManager::run()
     
     while(_end_execution == false)
     {
+        std::cout << " DENTRO DEL BUCLE MANAGER" << std::endl;
         current += 1;
         current = current % _children.size();
         if (current < 0)
@@ -137,13 +143,24 @@ bool IManager::run()
     
         _children.at(current)->run();
     }
+    std::cout << " SALIDA DEL BUCLE MANAGER" << std::endl;
     return true;
 }
 
 void IManager::execute_key_if_exist(int character)
 {
+    std::cout <<"----------->>>>>>>>>>>>>>>>>>>>> execute key exist" << std::endl;
+    //Estos if hay que modificarlos por algo mas general y escalable
     if( KEYS::ESCAPE == character)
+     {
+        std::cout <<"----------->>>>>>>>>>>>>>>>>>>>> Abortar" << std::endl;
         abort();
+     }  
+     else if(KEYS::ENTER == character)
+     {
+         std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENTER <<<<<<<<<<< " << std::endl;
+         clear_window();
+     }
 }
 
 void IManager::abort()

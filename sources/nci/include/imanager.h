@@ -40,6 +40,7 @@ public:
     void init();
     static void redraw();
     static void execute_key_if_exist(int character);
+    static void clear_window();
     bool run();
     
     void test();
